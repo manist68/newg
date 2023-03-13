@@ -1,0 +1,451 @@
+{
+    "algostate": [{
+        "from": 1,
+        "to": 2
+    }],
+    "workflowRunState": [{
+        "color": "lightblue",
+        "loc": "-500 0",
+        "key": 1,
+        "id": 1,
+        "text": "wasb",
+        "type": "DataSource",
+        "algoName": "Wasb",
+        "name": "Wasb",
+        "iconSource": "./images//DataSource/wasb_source.png",
+        "sourceNumber": "source1",
+        "settings": "sourceSettings",
+        "primarySource": null,
+        "secondarySource": null,
+        "algoSource": null,
+        "matchAlgo": "wasb",
+        "source": {
+            "wasb": {
+                "dataSource": "wasb",
+                "fileType": "csv",
+                "containerName": "Container__name",
+                "blobName": "RegressionData_1.csv",
+                "dataHeaderPresent": "true",
+                "Delimiter": ",",
+                "nonFeaturesColsList": "",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "hiveWarehouseDir": "/user/hive/warehouse",
+                "csv": "no",
+                "DataframeInputId": "D1",
+                "sourceName": "source1",
+                "inputFilePath": "/InputFiles/nwdata2.csv"
+            }
+        }
+    }, {
+        "color": "lightblue",
+        "loc": "-300 0",
+        "key": 2,
+        "id": 2,
+        "text": "dex",
+        "algoName": "Dex",
+        "name": "DataExploration",
+        "iconSource": "./images//algos/DATA-EXP/DEX.png",
+        "sourceNumber": "source2",
+        "category": "explorationAlgos",
+        "parent": "development",
+        "settings": "dataExplorationSettings",
+        "parentGroup": "defaultValue",
+        "primarySource": "Wasb",
+        "secondarySource": null,
+        "algoSource": null,
+        "matchAlgo": "dex",
+        "connectedSource": "wasb",
+        "connectedSourceId": 1,
+        "connectedSourceNumber": "source1",
+        "source": {
+            "dex": {
+                "exploreOnSample": "false",
+                "columnNum": "",
+                "indName": "",
+                "sampleSize": "0.1",
+                "columnName": "",
+                "persistDataExploration": "true",
+                "groupName": "dataExplorationSettings",
+                "algoType": "DataExploration"
+            }
+        }
+    }],
+    "explorationExists": true,
+    "dataValidationExists": false,
+    "pipelineAlgo": "development",
+    "tableName": "naidomain2",
+    "saveIntermediate": "false",
+    "workspace": "wasb - dex",
+    "workspaceName": "Wasb - DataExploration",
+    "algoParameters": {
+        "source1": {
+            "wasb": {
+                "dataSource": "wasb",
+                "fileType": "csv",
+                "containerName": "Container__name",
+                "blobName": "RegressionData_1.csv",
+                "dataHeaderPresent": "true",
+                "Delimiter": ",",
+                "nonFeaturesColsList": "",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "hiveWarehouseDir": "/user/hive/warehouse",
+                "csv": "no",
+                "DataframeInputId": "D1",
+                "sourceName": "source1",
+                "inputFilePath": "/InputFiles/nwdata2.csv",
+                "viewIntermediate": "false"
+            }
+        },
+        "source2": {
+            "dex": {
+                "exploreOnSample": "false",
+                "columnNum": "source1_year_target",
+                "expactedDexCoulmn": [{
+                    "columnNum": "source1_year_target",
+                    "explorationAlgoName": "CoefficientOfVariation,Describe,Median,DistinctValues,Variance,Kurtosis,Skewness,SumDistinct,Sum,MeanAbsoluteDeviation,Range,Histogram",
+                    "NoOfBins": "10",
+                    "algoid": "dex"
+                }],
+                "indName": "",
+                "sampleSize": "0.1",
+                "columnName": "",
+                "persistDataExploration": "true",
+                "dfStorageOutputDir": "/default_value",
+                "groupName": "dataExplorationSettings",
+                "algoType": "DataExploration",
+                "viewIntermediate": "false"
+            }
+        }
+    },
+    "scheduleStatus": "initial",
+    "pmmlSave": false,
+    "timestamp": "1641801748324",
+    "elasticIndexRoi": "",
+    "pmmlRegister": false,
+    "showInServingFlag": false,
+    "pipeline": true,
+    "dfOutputPath": "",
+    "pipelineSaveCase": true,
+    "ensembling": "false",
+    "stacking": "false",
+    "sparkConf": {
+        "driver-memory": "2g",
+        "hdfsUri": "hdfs://NTCluster:8020",
+        "executor-memory": "2g",
+        "executor-cores": "2",
+        "num-executors": "2",
+        "queue": "default",
+        "sparkSql": "300",
+        "queueOption": ["high", "low", "medium", "default"],
+        "localSpark": "false"
+    },
+    "showResult": false,
+    "validateTrain": false,
+    "deleteExistingPath": false,
+    "sanityTest": false,
+    "dataSnapshot": false,
+    "modelSaveOnWholeDataset": false,
+    "trainDataCountFlag": false,
+    "specialParamsToSendObj": {
+        "conditionPositive": "0",
+        "conditionNegative": "1"
+    },
+    "writeForROI": false,
+    "nodeInfo": {
+        "wasb": "source1",
+        "dex": "source2"
+    },
+    "autoDexPipeline": false,
+    "rootScope": {
+        "bucketizerInput": [],
+        "branches": null,
+        "nodeResultData": {
+            "1": {
+                "header": [{
+                    "id": 1,
+                    "name": "source1_year_target",
+                    "isSelected": true,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 2,
+                    "name": "source1_Uid",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 3,
+                    "name": "source1_age",
+                    "isSelected": true,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 4,
+                    "name": "source1_Pid",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 5,
+                    "name": "source1_city",
+                    "isSelected": false,
+                    "dataType": "string",
+                    "primitiveDataType": "StringType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 6,
+                    "name": "source1_state",
+                    "isSelected": false,
+                    "dataType": "string",
+                    "primitiveDataType": "StringType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 7,
+                    "name": "source1_subscribe",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 8,
+                    "name": "source1_MARRIAGE",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 9,
+                    "name": "source1_EDUCATION",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }],
+                "row": [
+                    ["1970", "9052", "33", "229536", "agra", "HP", "1", "1", "3"],
+                    ["1944", "9762", "25", "407967", "gurgaon", "MP", "0", "2", "2"],
+                    ["1947", "5595", "30", "75478", "bangalore", "MP", "1", "1", "1"],
+                    ["2004", "5212", "31", "872871", "bangalore", "MP", "0", "2", "2"],
+                    ["1986", "1064", "40", "57864", "delhi", "AP", "0", "1", "2"],
+                    ["1944", "8058", "42", "157588", "delhi", "UP", "0", "1", "2"],
+                    ["1992", "7522", "90", "52555", "delhi", "UP", "0", "1", "2"],
+                    ["1927", "5797", "73", "405696", "delhi", "HP", "0", "2", "1"],
+                    ["2002", "5637", "92", "971292", "gurgaon", "MP", "1", "2", "2"]
+                ]
+            }
+        },
+        "relationArrUpdated": null,
+        "dataRows": [],
+        "branchData": {
+            "1": {
+                "header": [{
+                    "id": 1,
+                    "name": "source1_year_target",
+                    "isSelected": false
+                }, {
+                    "id": 2,
+                    "name": "source1_Uid",
+                    "isSelected": false
+                }, {
+                    "id": 3,
+                    "name": "source1_age",
+                    "isSelected": false
+                }, {
+                    "id": 4,
+                    "name": "source1_Pid",
+                    "isSelected": false
+                }, {
+                    "id": 5,
+                    "name": "source1_city",
+                    "isSelected": false
+                }, {
+                    "id": 6,
+                    "name": "source1_state",
+                    "isSelected": false
+                }, {
+                    "id": 7,
+                    "name": "source1_subscribe",
+                    "isSelected": false
+                }, {
+                    "id": 8,
+                    "name": "source1_MARRIAGE",
+                    "isSelected": false
+                }, {
+                    "id": 9,
+                    "name": "source1_EDUCATION",
+                    "isSelected": false
+                }],
+                "row": [
+                    ["1970", "9052", "33", "229536", "agra", "HP", "1", "1", "3"],
+                    ["1944", "9762", "25", "407967", "gurgaon", "MP", "0", "2", "2"],
+                    ["1947", "5595", "30", "75478", "bangalore", "MP", "1", "1", "1"],
+                    ["2004", "5212", "31", "872871", "bangalore", "MP", "0", "2", "2"],
+                    ["1986", "1064", "40", "57864", "delhi", "AP", "0", "1", "2"],
+                    ["1944", "8058", "42", "157588", "delhi", "UP", "0", "1", "2"],
+                    ["1992", "7522", "90", "52555", "delhi", "UP", "0", "1", "2"],
+                    ["1927", "5797", "73", "405696", "delhi", "HP", "0", "2", "1"],
+                    ["2002", "5637", "92", "971292", "gurgaon", "MP", "1", "2", "2"]
+                ]
+            }
+        },
+        "evaluatorMetricMultiple": [],
+        "evaluatorMetricClustering": [],
+        "expactedDexCoulmn": [{
+            "columnNum": "source1_year_target",
+            "explorationAlgoName": "CoefficientOfVariation,Describe,Median,DistinctValues,Variance,Kurtosis,Skewness,SumDistinct,Sum,MeanAbsoluteDeviation,Range,Histogram",
+            "NoOfBins": "10",
+            "algoid": "dex"
+        }],
+        "addOperationArr": [],
+        "expactedDataValidationCoulmn": [],
+        "featureToolInfo": [],
+        "cnnLayers": [],
+        "dexCategoryValue": [],
+        "columnMap": [],
+        "newColName": [],
+        "scalerInfo": [],
+        "servingFeatureColumnInfo": []
+    },
+    "user": "naidomain2",
+    "email": "Email__id",
+    "servingEnabledPipeline": false,
+    "version": 1,
+    "orderOfNAIComponents": "sourceSettings,dataExplorationSettings,sinkSettings",
+    "droolsFlag": false,
+    "algoid": "",
+    "persistDataExploration": true,
+    "shapFlag": false,
+    "check": "pipeline",
+    "algoName": "Data_exploration_manual",
+    "projectName": "Project__Name",
+    "projectId": "Project__id",
+    "tag": "",
+    "commentData": false,
+    "modelAlgoParameters": {
+        "projectId": "Project__id",
+        "variableDerivationSettings": [],
+        "sinkSettings": [
+            []
+        ],
+        "modelAlgoSettings": [],
+        "dataProfilingSettings": [],
+        "dataExplorationSettings": [{
+            "columnNum": "source1_year_target",
+            "explorationAlgoName": "CoefficientOfVariation,Describe,Median,DistinctValues,Variance,Kurtosis,Skewness,SumDistinct,Sum,MeanAbsoluteDeviation,Range,Histogram",
+            "NoOfBins": "10",
+            "algoid": "dex",
+            "nodeId": "2"
+        }],
+        "dexActionSettings": [],
+        "etlSettings": [],
+        "droolsSettings": [],
+        "segmentationSettings": [],
+        "groupByAlgoSettings": [],
+        "crossTabulationSettings": [],
+        "evaluatorSettings": [],
+        "featureSettings": [],
+        "sourceSettings": [{
+            "nodeId": "1",
+            "algo": "Wasb",
+            "dataSource": "wasb",
+            "fileType": "csv",
+            "containerName": "Container__name",
+            "blobName": "RegressionData_1.csv",
+            "dataHeaderPresent": "true",
+            "Delimiter": ",",
+            "nonFeaturesColsList": "",
+            "hdfsUri": "hdfs://NTCluster:8020",
+            "hiveWarehouseDir": "/apps/hive/warehouse",
+            "csv": "no",
+            "DataframeInputId": "D1",
+            "sourceName": "source1",
+            "inputFilePath": "/InputFiles/nwdata2.csv",
+            "viewIntermediate": "false",
+            "sourceCategory": "primary",
+            "algoName": "NA",
+            "DataframeOutputId": "D1"
+        }],
+        "timestamp": "1641798166603",
+        "scheduling": "false",
+        "pipelineId": "undefined_undefined",
+        "ensembling": "false",
+        "stacking": "false",
+        "hiddenStoragePathForDP": "/home/ntuser",
+        "hiddenStoragePathForLocal": "file:///datadrive/firoz",
+        "hiveWarehouseDirName": "/apps/hive/warehouse",
+        "trainValidation": "false",
+        "deleteExistingPipeline": "false",
+        "modelSaveOnWholeDataSetFlag": "false",
+        "sanityTest": "false",
+        "dataSnapshot": "false",
+        "trainDataCountFlag": "false",
+        "orderOfNAIComponents": "sourceSettings,dataExplorationSettings,sinkSettings",
+        "version": "V1",
+        "persistDataExploration": true,
+        "ip": "10.2.0.6",
+        "user": "root",
+        "password": "Number@123",
+        "port": "3306",
+        "tableForApplicationId": "appInfo",
+        "tableForJsonResult": "appLog",
+        "database": "mysql",
+        "ElasticIndex": "esindex",
+        "servingIndex": "serving",
+        "servingIndexType": "_doc",
+        "ElasticIP": "10.2.0.6:9300",
+        "ElasticCluster": "NT",
+        "ElasticClusterNode": "node-1",
+        "commonHdfsUri": "hdfs://NTCluster:8020",
+        "idColumn": "id",
+        "rewardAlgo": "thompsonSampling",
+        "switchingModelDuration": "2000",
+        "rewardTopic": "rewards",
+        "streamEngine": "SparkStream",
+        "numberOfRecommendation": "4",
+        "ElasticIPROI": "localhost:9200",
+        "ElasticClusterROI": "NT",
+        "ElasticClusterNodeROI": "node-1",
+        "categoricalValueByDefault": "50",
+        "standbyMysqlIp": "localhost",
+        "standbyMysqlPort": "3306",
+        "standbyMysqlUser": "root",
+        "standbyMysqlPass": "root",
+        "debugMode": "false",
+        "elasticSearchFlag": "true",
+        "outputHiveDatabaseEs": "hiveesresultdatabase",
+        "outputHiveTableEs": "hiveesresulttable",
+        "conditionPositive": "0",
+        "conditionNegative": "1",
+        "driver-memory": "2g",
+        "hdfsUri": "hdfs://NTCluster:8020",
+        "executor-memory": "2g",
+        "executor-cores": "2",
+        "num-executors": "2",
+        "queue": "default",
+        "sparkSql": "300",
+        "queueOption": ["high", "low", "medium", "default"],
+        "localSpark": "false",
+        "linkNodeOfNAIComponents": [{
+            "currentId": "1",
+            "type": "DataSource",
+            "algoName": "wasb",
+            "settings": "sourceSettings",
+            "prevNodeId": "",
+            "nextNodeId": "2"
+        }, {
+            "currentId": "2",
+            "algoName": "dex",
+            "settings": "dataExplorationSettings",
+            "prevNodeId": "1",
+            "nextNodeId": ""
+        }],
+        "droolsFlag": "false"
+    },
+    "refId": "Ref__id",
+    "processId": 159625,
+    "processStatus": "success"
+}

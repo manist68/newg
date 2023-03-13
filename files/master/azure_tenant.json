@@ -1,0 +1,10 @@
+{
+"username" : "User__name",
+"email" : "Email__id",
+"tanentId" : "Tenant__ID",
+"storage_account_name" : "Storage__Account",
+"sinkStorageInfo" : { "container" : {"Container__name" : "Container__SAS"},"storageName" : "Storage__Account"},
+"sourceStorageInfo" : { "container" : {"Container__name" : "Container__SAS"},"storageName" : "Storage__Account"},
+"shortname" : "naidomain",
+"userType" : "other"
+}

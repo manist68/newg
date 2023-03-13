@@ -1,0 +1,591 @@
+{
+    "algostate": [{
+        "from": 1,
+        "to": 2
+    }, {
+        "from": 2,
+        "to": 3
+    }],
+    "workflowRunState": [{
+        "color": "lightblue",
+        "loc": "-500 0",
+        "key": 1,
+        "id": 1,
+        "text": "wasb",
+        "type": "DataSource",
+        "algoName": "Wasb",
+        "name": "Wasb",
+        "iconSource": "./images//DataSource/wasb_source.png",
+        "sourceNumber": "source1",
+        "settings": "sourceSettings",
+        "primarySource": null,
+        "secondarySource": null,
+        "algoSource": null,
+        "matchAlgo": "wasb",
+        "source": {
+            "wasb": {
+                "dataSource": "wasb",
+                "fileType": "csv",
+                "containerName": "Container__name",
+                "blobName": "Bank_customer.csv",
+                "dataHeaderPresent": "true",
+                "Delimiter": ",",
+                "nonFeaturesColsList": "source1_TXN_TYPE,source1_TransactionCard,source1_TXN_DATE_TIME",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "hiveWarehouseDir": "/user/hive/warehouse",
+                "csv": "no",
+                "DataframeInputId": "D1",
+                "sourceName": "source1",
+                "inputFilePath": "/InputFiles/nwdata2.csv"
+            }
+        }
+    }, {
+        "color": "lightblue",
+        "loc": "-300 0",
+        "key": 2,
+        "id": 2,
+        "text": "lir",
+        "algoName": "Lir",
+        "name": "Linear Regression",
+        "iconSource": "./images//algos/MODEL-DEVELOPMENT/lir.png",
+        "sourceNumber": "source2",
+        "category": "algo",
+        "parent": "development",
+        "settings": "modelAlgoSettings",
+        "parentGroup": "regression",
+        "primarySource": "Wasb",
+        "secondarySource": null,
+        "algoSource": null,
+        "matchAlgo": "Linear Regression",
+        "connectedSource": "wasb",
+        "connectedSourceId": 1,
+        "connectedSourceNumber": "source1",
+        "source": {
+            "lir": {
+                "commonLableCol": "",
+                "modelStorageOutputDir": "/Demo/LirModel",
+                "hyperParameterTunning": "false",
+                "kfoldFlag": "false",
+                "kfold": "3",
+                "seed": "12345",
+                "trainTestSplitType": "trainTestSplitRandomType",
+                "trainPercentage": "0.7",
+                "testPercentage": "0.3",
+                "trainTestDateColumn": "",
+                "trainSplitStartDate": "1970-01-01T00:00:00.000Z",
+                "trainSplitEndDate": "1970-01-01T00:00:00.000Z",
+                "testSplitEndDate": "1970-01-01T00:00:00.000Z",
+                "trainTestDateFormat": "dd-mm-yyyy",
+                "lirMaxIter": "25",
+                "pCutOffVal": "0.5",
+                "lirElasticNet": "1.0",
+                "metricName": "r2",
+                "lirStandardization": "true",
+                "lirReg": "0.3",
+                "lirSolver": "l-bfgs",
+                "lirTolerance": "1E-6",
+                "lirFitIntercept": "true",
+                "groupName": "modelAlgoSettings",
+                "algoType": "LinearRegression"
+            }
+        }
+    }, {
+        "color": "lightblue",
+        "loc": "-100 0",
+        "key": 3,
+        "id": 3,
+        "text": "wasbSink",
+        "type": "DataSink",
+        "algoName": "WasbSink",
+        "name": "WASB",
+        "iconSource": "./images//DataSink/wasb_sink.png",
+        "sourceNumber": "source3",
+        "settings": "sinkSettings",
+        "primarySource": null,
+        "secondarySource": null,
+        "algoSource": "regression",
+        "matchAlgo": "wasbSink",
+        "source": {
+            "wasbSink": {
+                "sinkType": "wasb",
+                "hdfsUri": "hdfs://NTCluster:8020"
+            }
+        }
+    }],
+    "explorationExists": false,
+    "dataValidationExists": false,
+    "pipelineAlgo": "development",
+    "tableName": "naidomain2",
+    "saveIntermediate": "false",
+    "workspace": "wasb - lir - wasbSink",
+    "workspaceName": "Wasb - Linear Regression - WASB",
+    "algoParameters": {
+        "source1": {
+            "wasb": {
+                "dataSource": "wasb",
+                "fileType": "csv",
+                "containerName": "Container__name",
+                "blobName": "Bank_customer.csv",
+                "dataHeaderPresent": "true",
+                "Delimiter": ",",
+                "nonFeaturesColsList": "source1_TXN_TYPE,source1_TransactionCard,source1_TXN_DATE_TIME",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "hiveWarehouseDir": "/user/hive/warehouse",
+                "csv": "no",
+                "DataframeInputId": "D1",
+                "sourceName": "source1",
+                "inputFilePath": "/InputFiles/nwdata2.csv",
+                "viewIntermediate": "false"
+            }
+        },
+        "source2": {
+            "lir": {
+                "commonLableCol": "source1_TXN_AMT",
+                "pmmlSave": "false",
+                "modelStorageOutputDir": "/Demo/LirModel",
+                "hyperParameterTunning": "false",
+                "kfoldFlag": "false",
+                "kfold": "3",
+                "seed": "12345",
+                "trainTestSplitType": "trainTestSplitRandomType",
+                "trainPercentage": "0.7",
+                "testPercentage": "0.3",
+                "trainTestDateColumn": "",
+                "trainSplitStartDate": "1970-01-01T00:00:00.000Z",
+                "trainSplitEndDate": "1970-01-01T00:00:00.000Z",
+                "testSplitEndDate": "1970-01-01T00:00:00.000Z",
+                "trainTestDateFormat": "dd-mm-yyyy",
+                "lirMaxIter": "25",
+                "pCutOffVal": "0.5",
+                "lirElasticNet": "1.0",
+                "metricName": "r2",
+                "lirStandardization": "true",
+                "lirReg": "0.3",
+                "lirSolver": "l-bfgs",
+                "lirTolerance": "1E-6",
+                "lirFitIntercept": "true",
+                "groupName": "modelAlgoSettings",
+                "algoType": "LinearRegression",
+                "viewIntermediate": "false"
+            }
+        },
+        "source3": {
+            "wasbSink": {
+                "pmmlSave": "false",
+                "modelStorageOutputDir": "/Demo/LirModel",
+                "sinkType": "wasb",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "viewIntermediate": "false"
+            }
+        }
+    },
+    "scheduleStatus": "initial",
+    "pmmlSave": false,
+    "timestamp": "",
+    "elasticIndexRoi": "",
+    "pmmlRegister": false,
+    "showInServingFlag": false,
+    "pipeline": true,
+    "dfOutputPath": "",
+    "pipelineSaveCase": true,
+    "ensembling": "false",
+    "stacking": "false",
+    "sparkConf": {
+        "driver-memory": "2g",
+        "hdfsUri": "hdfs://NTCluster:8020",
+        "executor-memory": "2g",
+        "executor-cores": "2",
+        "num-executors": "2",
+        "queue": "default",
+        "sparkSql": "300",
+        "queueOption": ["high", "low", "medium", "default"],
+        "localSpark": "false"
+    },
+    "showResult": false,
+    "validateTrain": true,
+    "deleteExistingPath": true,
+    "sanityTest": true,
+    "dataSnapshot": false,
+    "modelSaveOnWholeDataset": false,
+    "trainDataCountFlag": true,
+    "specialParamsToSendObj": {
+        "conditionPositive": "0",
+        "conditionNegative": "1"
+    },
+    "writeForROI": false,
+    "nodeInfo": {
+        "wasb": "source1",
+        "lir": "source2",
+        "wasbSink": "source3"
+    },
+    "autoDexPipeline": false,
+    "rootScope": {
+        "bucketizerInput": [],
+        "branches": null,
+        "nodeResultData": {
+            "1": {
+                "header": [{
+                    "id": 1,
+                    "name": "source1_ucic_id",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 2,
+                    "name": "source1_terminal_id",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 3,
+                    "name": "source1_TXN_AMT",
+                    "isSelected": true,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 5,
+                    "name": "source1_eot_bal",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 7,
+                    "name": "source1_terminal_pincode",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 8,
+                    "name": "source1_campaignid",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 9,
+                    "name": "source1_reaction",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 10,
+                    "name": "source1_stepnr",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 11,
+                    "name": "source1_reactioncount",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 12,
+                    "name": "source1_viewcount",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 13,
+                    "name": "source1_TXN_TIME_SPENT",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }],
+                "row": [
+                    ["125", "4935", "5676", "9292", "5523649", "6845", "0", "1", "19", "69", "472"],
+                    ["503", "4323", "8241", "3371", "1980211", "6693", "1", "5", "72", "105", "116"],
+                    ["38", "2131", "4199", "7579", "4750671", "6305", "0", "2", "51", "85", "478"],
+                    ["159", "3008", "5480", "4596", "2803364", "12699", "1", "4", "63", "24", "231"],
+                    ["511", "2395", "2541", "827", "4623090", "2466", "0", "4", "65", "182", "287"],
+                    ["606", "2131", "4119", "9507", "8968122", "11375", "0", "4", "42", "168", "497"],
+                    ["760", "2005", "3809", "865", "8868619", "11596", "1", "2", "53", "190", "311"],
+                    ["489", "2015", "7016", "7701", "316433", "12916", "1", "4", "80", "46", "485"],
+                    ["595", "4409", "2424", "1939", "8322451", "11273", "1", "9", "75", "90", "68"]
+                ]
+            }
+        },
+        "relationArrUpdated": null,
+        "dataRows": [],
+        "branchData": {
+            "1": {
+                "header": [{
+                    "id": 1,
+                    "name": "source1_ucic_id",
+                    "isSelected": false
+                }, {
+                    "id": 2,
+                    "name": "source1_terminal_id",
+                    "isSelected": false
+                }, {
+                    "id": 3,
+                    "name": "source1_TXN_AMT",
+                    "isSelected": false
+                }, {
+                    "id": 4,
+                    "name": "source1_TXN_TYPE",
+                    "isSelected": false
+                }, {
+                    "id": 5,
+                    "name": "source1_eot_bal",
+                    "isSelected": false
+                }, {
+                    "id": 6,
+                    "name": "source1_TransactionCard",
+                    "isSelected": false
+                }, {
+                    "id": 7,
+                    "name": "source1_terminal_pincode",
+                    "isSelected": false
+                }, {
+                    "id": 8,
+                    "name": "source1_campaignid",
+                    "isSelected": false
+                }, {
+                    "id": 9,
+                    "name": "source1_reaction",
+                    "isSelected": false
+                }, {
+                    "id": 10,
+                    "name": "source1_stepnr",
+                    "isSelected": false
+                }, {
+                    "id": 11,
+                    "name": "source1_reactioncount",
+                    "isSelected": false
+                }, {
+                    "id": 12,
+                    "name": "source1_viewcount",
+                    "isSelected": false
+                }, {
+                    "id": 13,
+                    "name": "source1_TXN_TIME_SPENT",
+                    "isSelected": false
+                }, {
+                    "id": 14,
+                    "name": "source1_TXN_DATE_TIME",
+                    "isSelected": false
+                }],
+                "row": [
+                    ["125", "4935", "5676", "dr", "9292", "on-us", "5523649", "6845", "0", "1", "19", "69", "472", "2015-07-11 01:54:20"],
+                    ["503", "4323", "8241", "cr", "3371", "of-us", "1980211", "6693", "1", "5", "72", "105", "116", "2015-10-22 05:30:20"],
+                    ["38", "2131", "4199", "dr", "7579", "on-us", "4750671", "6305", "0", "2", "51", "85", "478", "2015-05-24 10:25:20"],
+                    ["159", "3008", "5480", "cr", "4596", "of-us", "2803364", "12699", "1", "4", "63", "24", "231", "2015-04-07 06:24:20"],
+                    ["511", "2395", "2541", "dr", "827", "of-us", "4623090", "2466", "0", "4", "65", "182", "287", "2015-01-20 04:08:20"],
+                    ["606", "2131", "4119", "dr", "9507", "of-us", "8968122", "11375", "0", "4", "42", "168", "497", "2015-11-19 01:31:20"],
+                    ["760", "2005", "3809", "dr", "865", "on-us", "8868619", "11596", "1", "2", "53", "190", "311", "2015-07-06 10:28:20"],
+                    ["489", "2015", "7016", "dr", "7701", "of-us", "316433", "12916", "1", "4", "80", "46", "485", "2015-10-22 11:37:20"],
+                    ["595", "4409", "2424", "cr", "1939", "of-us", "8322451", "11273", "1", "9", "75", "90", "68", "2015-07-21 01:46:20"]
+                ]
+            }
+        },
+        "evaluatorMetricMultiple": [],
+        "evaluatorMetricClustering": [],
+        "expactedDexCoulmn": [],
+        "addOperationArr": [],
+        "expactedDataValidationCoulmn": [],
+        "featureToolInfo": [],
+        "cnnLayers": [],
+        "dexCategoryValue": [],
+        "columnMap": [],
+        "newColName": [],
+        "scalerInfo": [],
+        "servingFeatureColumnInfo": []
+    },
+    "user": "naidomain2",
+    "email": "Email__id",
+    "servingEnabledPipeline": true,
+    "version": 1,
+    "orderOfNAIComponents": "sourceSettings,modelAlgoSettings,sinkSettings",
+    "droolsFlag": false,
+    "algoid": "",
+    "persistDataExploration": false,
+    "shapFlag": false,
+    "check": "pipeline",
+    "algoName": "Sanity_Test",
+    "projectName": "Project__Name",
+    "projectId": "Project__id",
+    "tag": "",
+    "commentData": false,
+    "modelAlgoParameters": {
+        "projectId": "Project__id",
+        "variableDerivationSettings": [],
+        "sinkSettings": [
+            [{
+                "nodeId": "3",
+                "algo": "WASB",
+                "pmmlSave": "false",
+                "modelStorageOutputDir": "/Demo/LirModel",
+                "sinkType": "wasb",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "viewIntermediate": "false",
+                "algoName": "LinearRegression",
+                "dragId": 3,
+                "algoText": "wasbSink"
+            }]
+        ],
+        "modelAlgoSettings": [
+            [{
+                "nodeId": "2",
+                "algo": "Linear Regression",
+                "commonLableCol": "source1_TXN_AMT",
+                "pmmlSave": "false",
+                "modelStorageOutputDir": "/Demo/LirModel",
+                "hyperParameterTunning": "false",
+                "kfoldFlag": "false",
+                "kfold": "3",
+                "seed": "12345",
+                "trainTestSplitType": "trainTestSplitRandomType",
+                "trainPercentage": "0.7",
+                "testPercentage": "0.3",
+                "trainTestDateColumn": "",
+                "trainSplitStartDate": "1970-01-01T00:00:00.000Z",
+                "trainSplitEndDate": "1970-01-01T00:00:00.000Z",
+                "testSplitEndDate": "1970-01-01T00:00:00.000Z",
+                "trainTestDateFormat": "dd-mm-yyyy",
+                "lirMaxIter": "25",
+                "pCutOffVal": "0.5",
+                "lirElasticNet": "1.0",
+                "metricName": "r2",
+                "lirStandardization": "true",
+                "lirReg": "0.3",
+                "lirSolver": "l-bfgs",
+                "lirTolerance": "1E-6",
+                "lirFitIntercept": "true",
+                "groupName": "modelAlgoSettings",
+                "algoType": "LinearRegression",
+                "viewIntermediate": "false",
+                "dragId": 2,
+                "algoText": "lir",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "branchId": "b1",
+                "sinkType": "wasb",
+                "algoName": "LinearRegression"
+            }]
+        ],
+        "dataProfilingSettings": [],
+        "dataExplorationSettings": [],
+        "dexActionSettings": [],
+        "etlSettings": [],
+        "droolsSettings": [],
+        "segmentationSettings": [],
+        "groupByAlgoSettings": [],
+        "crossTabulationSettings": [],
+        "evaluatorSettings": [],
+        "featureSettings": [],
+        "sourceSettings": [{
+            "nodeId": "1",
+            "algo": "Wasb",
+            "dataSource": "wasb",
+            "fileType": "csv",
+            "containerName": "Container__name",
+            "blobName": "Bank_customer.csv",
+            "dataHeaderPresent": "true",
+            "Delimiter": ",",
+            "nonFeaturesColsList": "source1_TXN_TYPE,source1_TransactionCard,source1_TXN_DATE_TIME",
+            "hdfsUri": "hdfs://NTCluster:8020",
+            "hiveWarehouseDir": "/apps/hive/warehouse",
+            "csv": "no",
+            "DataframeInputId": "D1",
+            "sourceName": "source1",
+            "inputFilePath": "/InputFiles/nwdata2.csv",
+            "viewIntermediate": "false",
+            "sourceCategory": "primary",
+            "algoName": "NA",
+            "DataframeOutputId": "D1"
+        }],
+        "timestamp": "1641797605567",
+        "scheduling": "false",
+        "pipelineId": "undefined_undefined",
+        "ensembling": "false",
+        "stacking": "false",
+        "hiddenStoragePathForDP": "/home/ntuser",
+        "hiddenStoragePathForLocal": "file:///datadrive/firoz",
+        "hiveWarehouseDirName": "/apps/hive/warehouse",
+        "trainValidation": "true",
+        "deleteExistingPipeline": "true",
+        "modelSaveOnWholeDataSetFlag": "false",
+        "sanityTest": "true",
+        "dataSnapshot": "false",
+        "trainDataCountFlag": "true",
+        "orderOfNAIComponents": "sourceSettings,modelAlgoSettings,sinkSettings",
+        "version": "V1",
+        "persistDataExploration": false,
+        "ip": "10.2.0.6",
+        "user": "root",
+        "password": "Number@123",
+        "port": "3306",
+        "tableForApplicationId": "appInfo",
+        "tableForJsonResult": "appLog",
+        "database": "mysql",
+        "ElasticIndex": "esindex",
+        "servingIndex": "serving",
+        "servingIndexType": "_doc",
+        "ElasticIP": "10.2.0.6:9300",
+        "ElasticCluster": "NT",
+        "ElasticClusterNode": "node-1",
+        "commonHdfsUri": "hdfs://NTCluster:8020",
+        "idColumn": "id",
+        "rewardAlgo": "thompsonSampling",
+        "switchingModelDuration": "2000",
+        "rewardTopic": "rewards",
+        "streamEngine": "SparkStream",
+        "numberOfRecommendation": "4",
+        "ElasticIPROI": "localhost:9200",
+        "ElasticClusterROI": "NT",
+        "ElasticClusterNodeROI": "node-1",
+        "categoricalValueByDefault": "50",
+        "standbyMysqlIp": "localhost",
+        "standbyMysqlPort": "3306",
+        "standbyMysqlUser": "root",
+        "standbyMysqlPass": "root",
+        "debugMode": "false",
+        "elasticSearchFlag": "true",
+        "outputHiveDatabaseEs": "hiveesresultdatabase",
+        "outputHiveTableEs": "hiveesresulttable",
+        "conditionPositive": "0",
+        "conditionNegative": "1",
+        "driver-memory": "2g",
+        "hdfsUri": "hdfs://NTCluster:8020",
+        "executor-memory": "2g",
+        "executor-cores": "2",
+        "num-executors": "2",
+        "queue": "default",
+        "sparkSql": "300",
+        "queueOption": ["high", "low", "medium", "default"],
+        "localSpark": "false",
+        "linkNodeOfNAIComponents": [{
+            "currentId": "1",
+            "type": "DataSource",
+            "algoName": "wasb",
+            "settings": "sourceSettings",
+            "prevNodeId": "",
+            "nextNodeId": "2"
+        }, {
+            "currentId": "2",
+            "algoName": "lir",
+            "settings": "modelAlgoSettings",
+            "prevNodeId": "1",
+            "nextNodeId": "3"
+        }, {
+            "currentId": "3",
+            "type": "DataSink",
+            "algoName": "wasbSink",
+            "settings": "sinkSettings",
+            "prevNodeId": "2",
+            "nextNodeId": ""
+        }],
+        "droolsFlag": "false"
+    },
+    "refId": "Ref__id"
+}

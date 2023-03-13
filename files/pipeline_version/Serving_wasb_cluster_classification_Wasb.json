@@ -1,0 +1,272 @@
+{
+    "algostate": [{
+        "from": 1,
+        "to": 2
+    }],
+    "workflowRunState": [{
+        "color": "lightblue",
+        "loc": "-500 0",
+        "key": 1,
+        "id": 1,
+        "text": "model-view",
+        "type": "modelView",
+        "algoName": "Model-view",
+        "name": "Model View",
+        "iconSource": "./images//algos/MODEL-INF/mv.png",
+        "sourceNumber": "source1",
+        "category": "servingAlgos",
+        "parent": "serving",
+        "settings": "validationSetting",
+        "primarySource": null,
+        "secondarySource": null,
+        "algoSource": null,
+        "matchAlgo": "model-view",
+        "source": {
+            "model-view": {
+                "userIdValue": "wasb_cluster_classification_Wasb",
+                "version": "V1",
+                "validation": "true",
+                "labelCol": "",
+                "sourceObj": "source1:wasb",
+                "source1:wasbFileType": "csv",
+                "source1:wasbContainerName": "Container__name",
+                "source1:wasbBlobName": "RegressionData_1.csv",
+                "source1:wasbDataHeaderPresent": "true",
+                "source1:wasbDelimiter": ",",
+                "source1:wasbNonFeaturesColsList": "",
+                "idColumn": "",
+                "storeSourceObjInfo": {
+                    "sourceObj": {
+                        "source1:wasb": "source1:wasb"
+                    },
+                    "sourceInfo": ["modelSource", "source1:wasb"],
+                    "sourceValueInfo": ["modelSource", "wasb"],
+                    "idValueObj": {
+                        "value00": "source1_year_target",
+                        "value01": "source1_Uid",
+                        "value02": "source1_age",
+                        "value03": "source1_Pid",
+                        "value04": "source1_city",
+                        "value05": "source1_state",
+                        "value06": "source1_subscribe",
+                        "value07": "source1_MARRIAGE",
+                        "value08": "source1_EDUCATION"
+                    },
+                    "binaryClassificationFlag": true
+                },
+                "predictionLimit": "0.5",
+                "dataRulePresent": "false",
+                "ruleFile": "",
+                "dfStorageOutputDir": "/defaultValue"
+            }
+        }
+    }, {
+        "color": "lightblue",
+        "loc": "-300 0",
+        "key": 2,
+        "id": 2,
+        "text": "wasbSink",
+        "type": "DataSink",
+        "algoName": "WasbSink",
+        "name": "WASB",
+        "iconSource": "./images//DataSink/wasb_sink.png",
+        "sourceNumber": "source2",
+        "settings": "sinkSettings",
+        "primarySource": null,
+        "secondarySource": null,
+        "matchAlgo": "wasbSink",
+        "source": {
+            "wasbSink": {
+                "sinkType": "wasb",
+                "hdfsUri": "hdfs://NTCluster:8020"
+            }
+        }
+    }],
+    "explorationExists": false,
+    "dataValidationExists": false,
+    "pipelineAlgo": "serving",
+    "tableName": "naidomain2",
+    "saveIntermediate": "false",
+    "workspace": "model-view - wasbSink",
+    "workspaceName": "Model View - WASB",
+    "algoParameters": {
+        "source1": {
+            "model-view": {
+                "userIdValue": "wasb_cluster_classification_Wasb",
+                "version": "V1",
+                "validation": "true",
+                "labelCol": "",
+                "sourceObj": "source1:wasb",
+                "source1:wasbFileType": "csv",
+                "source1:wasbContainerName": "Container__name",
+                "source1:wasbBlobName": "RegressionData_1.csv",
+                "source1:wasbDataHeaderPresent": "true",
+                "source1:wasbDelimiter": ",",
+                "source1:wasbNonFeaturesColsList": "city,state",
+                "idColumn": "source1_Uid",
+                "storeSourceObjInfo": {
+                    "sourceObj": {
+                        "source1:wasb": "source1:wasb"
+                    },
+                    "sourceInfo": ["modelSource", "source1:wasb"],
+                    "sourceValueInfo": ["modelSource", "wasb"],
+                    "idValueObj": {
+                        "value00": "source1_year_target",
+                        "value01": "source1_Uid",
+                        "value02": "source1_age",
+                        "value03": "source1_Pid",
+                        "value04": "source1_city",
+                        "value05": "source1_state",
+                        "value06": "source1_subscribe",
+                        "value07": "source1_MARRIAGE",
+                        "value08": "source1_EDUCATION"
+                    },
+                    "binaryClassificationFlag": true,
+                    "devProjectName" : "Project__Name"
+                },
+                "predictionLimit": "0.5",
+                "dataRulePresent": "false",
+                "ruleFile": "",
+                "saveFormat": "csv",
+                "dfStorageOutputDir": "/defaultValue",
+                "viewIntermediate": "false"
+            }
+        },
+        "source2": {
+            "wasbSink": {
+                "saveFormat": "csv",
+                "dfStorageOutputDir": "/defaultValue",
+                "sinkType": "wasb",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "viewIntermediate": "false"
+            }
+        }
+    },
+    "scheduleStatus": "initial",
+    "pmmlSave": false,
+    "timestamp": "1641800157729",
+    "elasticIndexRoi": "",
+    "pmmlRegister": false,
+    "showInServingFlag": false,
+    "pipeline": true,
+    "dfOutputPath": "",
+    "pipelineSaveCase": true,
+    "ensembling": "false",
+    "stacking": "false",
+    "sparkConf": {
+        "driver-memory": "2g",
+        "hdfsUri": "hdfs://NTCluster:8020",
+        "executor-memory": "2g",
+        "executor-cores": "2",
+        "num-executors": "2",
+        "queue": "default",
+        "sparkSql": "300",
+        "queueOption": ["high", "low", "medium", "default"],
+        "localSpark": "false"
+    },
+    "showResult": false,
+    "validateTrain": false,
+    "deleteExistingPath": true,
+    "sanityTest": false,
+    "dataSnapshot": false,
+    "modelSaveOnWholeDataset": false,
+    "trainDataCountFlag": false,
+    "specialParamsToSendObj": {
+        "conditionPositive": "0",
+        "conditionNegative": "1"
+    },
+    "writeForROI": false,
+    "nodeInfo": {
+        "model-view": "source1",
+        "wasbSink": "source2"
+    },
+    "autoDexPipeline": false,
+    "rootScope": {
+        "bucketizerInput": [],
+        "branches": null,
+        "relationArrUpdated": null,
+        "dataRows": [],
+        "branchData": {
+            "1": {
+                "header": [{
+                    "id": 1,
+                    "name": "year_target",
+                    "isSelected": false
+                }, {
+                    "id": 2,
+                    "name": "Uid",
+                    "isSelected": false
+                }, {
+                    "id": 3,
+                    "name": "age",
+                    "isSelected": false
+                }, {
+                    "id": 4,
+                    "name": "Pid",
+                    "isSelected": false
+                }, {
+                    "id": 5,
+                    "name": "city",
+                    "isSelected": false
+                }, {
+                    "id": 6,
+                    "name": "state",
+                    "isSelected": false
+                }, {
+                    "id": 7,
+                    "name": "subscribe",
+                    "isSelected": false
+                }, {
+                    "id": 8,
+                    "name": "MARRIAGE",
+                    "isSelected": false
+                }, {
+                    "id": 9,
+                    "name": "EDUCATION",
+                    "isSelected": false
+                }],
+                "row": [
+                    ["1970", "9052", "33", "229536", "agra", "HP", "1", "1", "3"],
+                    ["1944", "9762", "25", "407967", "gurgaon", "MP", "0", "2", "2"],
+                    ["1947", "5595", "30", "75478", "bangalore", "MP", "1", "1", "1"],
+                    ["2004", "5212", "31", "872871", "bangalore", "MP", "0", "2", "2"],
+                    ["1986", "1064", "40", "57864", "delhi", "AP", "0", "1", "2"],
+                    ["1944", "8058", "42", "157588", "delhi", "UP", "0", "1", "2"],
+                    ["1992", "7522", "90", "52555", "delhi", "UP", "0", "1", "2"],
+                    ["1927", "5797", "73", "405696", "delhi", "HP", "0", "2", "1"],
+                    ["2002", "5637", "92", "971292", "gurgaon", "MP", "1", "2", "2"]
+                ]
+            }
+        },
+        "evaluatorMetricMultiple": [],
+        "evaluatorMetricClustering": [],
+        "expactedDexCoulmn": [],
+        "addOperationArr": [],
+        "expactedDataValidationCoulmn": [],
+        "featureToolInfo": [],
+        "cnnLayers": [],
+        "dexCategoryValue": [],
+        "columnMap": [],
+        "newColName": [],
+        "scalerInfo": [],
+        "servingFeatureColumnInfo": ["source1:wasb"]
+    },
+    "user": "naidomain2",
+    "email": "Email__id",
+    "servingEnabledPipeline": false,
+    "version": 1,
+    "orderOfNAIComponents": "sinkSettings",
+    "droolsFlag": false,
+    "algoid": "",
+    "persistDataExploration": false,
+    "shapFlag": false,
+    "check": "pipeline",
+    "algoName": "Serving_wasb_cluster_classification_Wasb",
+    "projectName": "Project__Name",
+    "projectId": "Project__id",
+    "tag": "",
+    "commentData": false,
+    "refId": "Ref__id",
+    "processId": 113511,
+    "processStatus": "success"
+}

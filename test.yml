@@ -1,0 +1,44 @@
+stages:
+- stage: create_customer
+  #dependsOn: star_agent
+  pool: Default
+  jobs:
+  - job: clean_folder
+    workspace:
+      clean: all
+    continueOnError : false
+
+  - job: delete_tfState
+    continueOnError: false
+    steps:
+     - task: PowerShell@2
+       inputs:
+         targetType: 'inline'
+         script: |
+            $email_id = ${env:EMAIL_ADDRESS}
+            $arr = $email_id -split '@'
+            $username = $arr[0]
+            $username = $username.Replace(".","")
+            $username = $username.Replace("-","")
+            $containerName = $username+'container'
+            echo ""
+            echo "-----------------uploading files to  $containerName--------------------------------"
+            echo ""
+            # $StorageAccSceret = "OCS-"+${env:storage_account}+"-KEY"
+            $KeyVaultName = "aiatscaleVault"
+            $StorageAccSceret = "OCS-ntsparkstorage-KEY"
+            echo $(System.DefaultWorkingDirectory)
+            az login -u 'akshaya.malik@teamnumbertheory.onmicrosoft.com' -p 'Ak@100889'
+            $strgKey = Get-AzKeyVaultSecret -VaultName $KeyVaultName -Name $StorageAccSceret
+
+            $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($strgKey.SecretValue)
+            try {
+              $strgKey = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($ssPtr)
+            } finally {
+              [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
+            }
+            echo "$strgKey"
+            # az storage blob copy start --account-key NCm1CtNpfQz93X7vugq/3f4u1ZzVUFdqGSUb3RXqaQRjdLK6VjQcCBdKDX02eAoS2gECngwE86Ge+E6C8Po+Zg== --account-name ntsparkstorage --destination-blob collection20c_12.csv --destination-container butterchickencontainer --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/collection20c_1.csv 
+
+
+         workingDirectory: '$(System.DefaultWorkingDirectory)'

@@ -1,0 +1,12 @@
+{
+    "algoName":"wasb_autoDex",
+    "projectName":"Project__Name",
+    "projectId":"Project__id",
+    "tableName":"naidomain2",
+    "created_on":"2022-01-10T06:40:42.606Z",
+    "updated_on":"2022-01-10T06:40:42.606Z",
+    "user":"naidomain2",
+    "email":"Email__id",
+    "showInServingFlag":false,
+    "showResult":true
+}

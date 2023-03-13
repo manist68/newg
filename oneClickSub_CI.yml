@@ -1,0 +1,38 @@
+pool:
+  name: Default
+steps:
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform/container_userAdd'
+  inputs:
+    SourceFolder: code/container_userAdd
+    TargetFolder: '$(build.artifactstagingdirectory)/Terraform/container_userAdd'
+    CleanTargetFolder: true
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform/userAdd'
+  inputs:
+    SourceFolder: code/userAdd
+    TargetFolder: '$(build.artifactstagingdirectory)/Terraform/userAdd'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform/container_inviteUser'
+  inputs:
+    SourceFolder: code/container_inviteUser
+    TargetFolder: '$(build.artifactstagingdirectory)/Terraform/container_inviteUser'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/Terraform/userInvite'
+  inputs:
+    SourceFolder: code/userInvite
+    TargetFolder: '$(build.artifactstagingdirectory)/Terraform/userInvite'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/files'
+  inputs:
+    SourceFolder: files
+    TargetFolder: '$(build.artifactstagingdirectory)/files'
+ 
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: oneClickSub'
+  inputs:
+    ArtifactName: oneClickSub

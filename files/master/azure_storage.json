@@ -1,0 +1,6 @@
+{
+"username" : "User__name",
+"email" : "Email__id",
+"ntsparkstorage" : "Storage__SAS",
+"tenantId" : "Tenant__ID"
+}

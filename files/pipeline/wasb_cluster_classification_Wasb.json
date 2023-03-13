@@ -1,0 +1,12 @@
+{
+    "algoName":"wasb_cluster_classification_Wasb",
+    "projectName":"Project__Name",
+    "projectId":"Project__id",
+    "tableName":"naidomain2",
+    "created_on":"2022-01-10T06:57:58.554Z",
+    "updated_on":"2022-01-10T06:57:58.554Z",
+    "user":"naidomain2",
+    "email":"Email__id",
+    "showInServingFlag":false,
+    "showResult":true
+    }

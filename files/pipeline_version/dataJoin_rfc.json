@@ -1,0 +1,1279 @@
+{
+    "algostate": [{
+        "from": 1,
+        "to": 3
+    }, {
+        "from": 2,
+        "to": 3
+    }, {
+        "from": 3,
+        "to": 4
+    }, {
+        "from": 4,
+        "to": 5
+    }, {
+        "from": 5,
+        "to": 6
+    }, {
+        "from": 6,
+        "to": 7
+    }],
+    "workflowRunState": [{
+        "color": "lightblue",
+        "loc": "-492 -115",
+        "key": 1,
+        "id": 1,
+        "text": "wasb",
+        "type": "DataSource",
+        "algoName": "Wasb",
+        "name": "Wasb",
+        "iconSource": "./images//DataSource/wasb_source.png",
+        "sourceNumber": "source1",
+        "settings": "sourceSettings",
+        "primarySource": null,
+        "secondarySource": null,
+        "algoSource": null,
+        "matchAlgo": "wasb",
+        "source": {
+            "wasb": {
+                "dataSource": "wasb",
+                "fileType": "csv",
+                "containerName": "Container__name",
+                "blobName": "TransactionalData.csv",
+                "dataHeaderPresent": "true",
+                "Delimiter": ",",
+                "nonFeaturesColsList": "",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "hiveWarehouseDir": "/user/hive/warehouse",
+                "csv": "no",
+                "DataframeInputId": "D1",
+                "sourceName": "source1",
+                "inputFilePath": "/InputFiles/nwdata2.csv"
+            }
+        },
+        "inputid": 1
+    }, {
+        "color": "lightblue",
+        "loc": "-495 31",
+        "key": 2,
+        "id": 2,
+        "text": "wasb",
+        "type": "DataSource",
+        "algoName": "Wasb",
+        "name": "Wasb",
+        "iconSource": "./images//DataSource/wasb_source.png",
+        "sourceNumber": "source2",
+        "settings": "sourceSettings",
+        "primarySource": null,
+        "secondarySource": null,
+        "algoSource": null,
+        "matchAlgo": "wasb",
+        "source": {
+            "wasb": {
+                "dataSource": "wasb",
+                "fileType": "csv",
+                "containerName": "Container__name",
+                "blobName": "demog.csv",
+                "dataHeaderPresent": "true",
+                "Delimiter": ",",
+                "nonFeaturesColsList": "",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "hiveWarehouseDir": "/user/hive/warehouse",
+                "csv": "no",
+                "DataframeInputId": "D1",
+                "sourceName": "source2",
+                "inputFilePath": "/InputFiles/nwdata2.csv"
+            }
+        },
+        "inputid": 2
+    }, {
+        "color": "lightblue",
+        "loc": "-346 -38",
+        "key": 3,
+        "id": 3,
+        "text": "dj",
+        "type": "2DFOperartion",
+        "algoName": "Dj",
+        "name": "Data Join",
+        "iconSource": "./images//algos/ETL/DJ.png",
+        "sourceNumber": "source3",
+        "category": "etl",
+        "parent": "etl",
+        "settings": "etlSettings",
+        "parentGroup": "defaultValue",
+        "primarySource": "Wasb",
+        "secondarySource": "Wasb",
+        "algoSource": null,
+        "matchAlgo": "dj",
+        "connectedSource": "wasb",
+        "connectedSourceId": 1,
+        "connectedSourceNumber": "source1",
+        "source": {
+            "dj": {
+                "type": "InnerJoin",
+                "commonColumn": "source1_UCIC_ID_1,source2_UCIC_ID",
+                "dataframeValues": "[{\"dataHeader\":\"true\",\"algoid\":\"dj\",\"commonColumn\":\"source1_UCIC_ID_1\",\"sourceId\":\"source1\",\"source\":\"wasb\",\"actualSourceId\":1},{\"dataHeader\":\"true\",\"algoid\":\"dj\",\"commonColumn\":\"source2_UCIC_ID\",\"sourceId\":\"source2\",\"source\":\"wasb\",\"actualSourceId\":2}]",
+                "JoinCondition": "=",
+                "dfStorageOutputDir": "/defaultValue",
+                "groupName": "etlSettings"
+            }
+        }
+    }, {
+        "color": "lightblue",
+        "loc": "-202 -38",
+        "key": 4,
+        "id": 4,
+        "text": "mv",
+        "algoName": "Mv",
+        "name": "Missing Value",
+        "iconSource": "./images//algos/DATA-PROFILING/mv.png",
+        "sourceNumber": "source4",
+        "category": "profilingAlgos",
+        "parent": "development",
+        "settings": "dataProfilingSettings",
+        "parentGroup": "defaultValue",
+        "primarySource": "Wasb",
+        "secondarySource": null,
+        "algoSource": null,
+        "matchAlgo": "mv",
+        "connectedSource": "wasb",
+        "connectedSourceId": 1,
+        "connectedSourceNumber": "source1",
+        "source": {
+            "mv": {
+                "functionAppliedOn": "Complete Data",
+                "selectedFunction": "ImputeWithMeanAndMode",
+                "columns": "",
+                "userInputStringValue": "",
+                "userInputIntegerValue": "",
+                "percentageOfNullAllow": "",
+                "fillFunctionName": "",
+                "checkCompleteData": "false",
+                "groupName": "dataProfilingSettings"
+            }
+        }
+    }, {
+        "color": "lightblue",
+        "loc": "-66 -35",
+        "key": 5,
+        "id": 5,
+        "text": "si",
+        "algoName": "Si",
+        "name": "String Indexer",
+        "iconSource": "./images//algos/DATA-PROFILING/si.png",
+        "sourceNumber": "source5",
+        "category": "profilingAlgos",
+        "parent": "development",
+        "settings": "dataProfilingSettings",
+        "parentGroup": "defaultValue",
+        "primarySource": null,
+        "secondarySource": null,
+        "algoSource": "defaultValue",
+        "matchAlgo": "StringIndexer",
+        "connectedSource": "wasb",
+        "connectedSourceId": 1,
+        "connectedSourceNumber": "source1",
+        "source": {
+            "si": {
+                "columns": "source2_GENDER,source2_legal_entity,source2_OCCUP_ALL_NEW",
+                "groupName": "dataProfilingSettings",
+                "algoType": "StringIndexer"
+            }
+        }
+    }, {
+        "color": "lightblue",
+        "loc": "58 -37",
+        "key": 6,
+        "id": 6,
+        "text": "rf-c",
+        "algoName": "Rf-c",
+        "name": "Random Forest Classification",
+        "iconSource": "./images//algos//MODEL-DEVELOPMENT/rf-c.png",
+        "sourceNumber": "source6",
+        "category": "algo",
+        "parent": "development",
+        "settings": "modelAlgoSettings",
+        "parentGroup": "classification",
+        "primarySource": null,
+        "secondarySource": null,
+        "algoSource": "defaultValue",
+        "matchAlgo": "RandomForestClassification",
+        "connectedSource": "wasb",
+        "connectedSourceId": 1,
+        "connectedSourceNumber": "source1",
+        "source": {
+            "rf-c": {
+                "commonLableCol": "",
+                "automaticCategoricalColumnFlag": "false",
+                "userGivenCategoricalColumns": "",
+                "shapFlag": "false",
+                "modelStorageOutputDir": "/testing/randomforestClassification/model",
+                "hyperParameterTunning": "false",
+                "kfoldFlag": "false",
+                "kfold": "4",
+                "seed": "12345",
+                "trainTestSplitType": "trainTestSplitRandomType",
+                "trainPercentage": "0.7",
+                "testPercentage": "0.3",
+                "trainTestDateColumn": "",
+                "trainSplitStartDate": "1970-01-01",
+                "trainSplitEndDate": "1970-01-01",
+                "testSplitEndDate": "1970-01-01",
+                "trainTestDateFormat": "dd-mm-yyyy",
+                "rfMaxDepth": "5",
+                "rfMaxBins": "50",
+                "rfFeatureSubsetStrategy": "auto",
+                "rfImpurity": "gini",
+                "rfMinimumInfoGain": "0.01",
+                "rfNumTree": "3",
+                "rfMinimumInstancePerNode": "4",
+                "rfSubSamplingRate": "0.1",
+                "rfIsCacheNodeIds": "false",
+                "rfCheckpointInterval": "-1",
+                "isMultiClass": "false",
+                "liftGainChart": "false",
+                "metricName": "areaUnderROC",
+                "calculateScoring": "false",
+                "outputPathForMeanVectors": "/MeanVectorsOuput",
+                "ntile": "10",
+                "threshold": "0.8",
+                "conditionPositive": "0",
+                "conditionNegative": "1",
+                "groupName": "modelAlgoSettings"
+            }
+        }
+    }, {
+        "color": "lightblue",
+        "loc": "177 -36",
+        "key": 7,
+        "id": 7,
+        "text": "wasbSink",
+        "type": "DataSink",
+        "algoName": "WasbSink",
+        "name": "WASB",
+        "iconSource": "./images//DataSink/wasb_sink.png",
+        "sourceNumber": "source7",
+        "settings": "sinkSettings",
+        "primarySource": null,
+        "secondarySource": null,
+        "algoSource": "classification",
+        "matchAlgo": "wasbSink",
+        "source": {
+            "wasbSink": {
+                "sinkType": "wasb",
+                "hdfsUri": "hdfs://NTCluster:8020"
+            }
+        }
+    }],
+    "explorationExists": false,
+    "dataValidationExists": false,
+    "pipelineAlgo": "development",
+    "tableName": "naidomain2",
+    "saveIntermediate": "false",
+    "workspace": "wasb - wasb - dj - mv - si - rf-c - wasbSink",
+    "workspaceName": "Wasb - Wasb - Data Join - Missing Value - String Indexer - Random Forest Classification - WASB",
+    "algoParameters": {
+        "source1": {
+            "wasb": {
+                "dataSource": "wasb",
+                "fileType": "csv",
+                "containerName": "Container__name",
+                "blobName": "TransactionalData.csv",
+                "dataHeaderPresent": "true",
+                "Delimiter": ",",
+                "nonFeaturesColsList": "",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "hiveWarehouseDir": "/user/hive/warehouse",
+                "csv": "no",
+                "DataframeInputId": "D1",
+                "sourceName": "source1",
+                "inputFilePath": "/InputFiles/nwdata2.csv",
+                "viewIntermediate": "false"
+            }
+        },
+        "source2": {
+            "wasb": {
+                "dataSource": "wasb",
+                "fileType": "csv",
+                "containerName": "Container__name",
+                "blobName": "demog.csv",
+                "dataHeaderPresent": "true",
+                "Delimiter": ",",
+                "nonFeaturesColsList": "",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "hiveWarehouseDir": "/user/hive/warehouse",
+                "csv": "no",
+                "DataframeInputId": "D1",
+                "sourceName": "source2",
+                "inputFilePath": "/InputFiles/nwdata2.csv",
+                "viewIntermediate": "false"
+            }
+        },
+        "source3": {
+            "dj": {
+                "type": "InnerJoin",
+                "commonColumn": "source1_UCIC_ID_1,source2_UCIC_ID",
+                "dataframeValues": [{
+                    "dataHeader": "true",
+                    "algoid": "dj",
+                    "commonColumn": "source1_UCIC_ID_1",
+                    "sourceId": "source1",
+                    "source": "wasb",
+                    "actualSourceId": 1
+                }, {
+                    "dataHeader": "true",
+                    "algoid": "dj",
+                    "commonColumn": "source2_UCIC_ID",
+                    "sourceId": "source2",
+                    "source": "wasb",
+                    "actualSourceId": 2
+                }],
+                "JoinCondition": "=",
+                "saveFormat": "csv",
+                "dfStorageOutputDir": "/defaultValue",
+                "groupName": "etlSettings",
+                "viewIntermediate": "false"
+            }
+        },
+        "source4": {
+            "mv": {
+                "functionAppliedOn": "Complete Data",
+                "selectedFunction": "ImputeWithMeanAndMode",
+                "columns": "",
+                "userInputStringValue": "",
+                "userInputIntegerValue": "",
+                "percentageOfNullAllow": "",
+                "fillFunctionName": "",
+                "checkCompleteData": "false",
+                "saveFormat": "csv",
+                "dfStorageOutputDir": "/default",
+                "groupName": "dataProfilingSettings",
+                "columnNumListWithFunction": [{
+                    "functionName": "ImputeWithMeanAndMode"
+                }],
+                "viewIntermediate": "false"
+            }
+        },
+        "source5": {
+            "si": {
+                "columns": "source2_GENDER,source2_legal_entity,source2_OCCUP_ALL_NEW",
+                "saveFormat": "csv",
+                "pmmlSave": "false",
+                "dfStorageOutputDir": "/default",
+                "groupName": "dataProfilingSettings",
+                "algoType": "StringIndexer",
+                "viewIntermediate": "false"
+            }
+        },
+        "source6": {
+            "rf-c": {
+                "commonLableCol": "source1_RECAL_RESP_REDUCER",
+                "automaticCategoricalColumnFlag": "false",
+                "userGivenCategoricalColumns": "",
+                "pmmlSave": "false",
+                "shapFlag": "false",
+                "modelStorageOutputDir": "/testing/randomforestClassification/model",
+                "hyperParameterTunning": "false",
+                "kfoldFlag": "false",
+                "kfold": "4",
+                "seed": "12345",
+                "trainTestSplitType": "trainTestSplitRandomType",
+                "trainPercentage": "0.7",
+                "testPercentage": "0.3",
+                "trainTestDateColumn": "",
+                "trainSplitStartDate": "1970-01-01",
+                "trainSplitEndDate": "1970-01-01",
+                "testSplitEndDate": "1970-01-01",
+                "trainTestDateFormat": "dd-mm-yyyy",
+                "rfMaxDepth": "5",
+                "rfMaxBins": "50",
+                "rfFeatureSubsetStrategy": "auto",
+                "rfImpurity": "gini",
+                "rfMinimumInfoGain": "0.01",
+                "rfNumTree": "3",
+                "rfMinimumInstancePerNode": "4",
+                "rfSubSamplingRate": "0.1",
+                "rfIsCacheNodeIds": "false",
+                "rfCheckpointInterval": "-1",
+                "isMultiClass": "false",
+                "liftGainChart": "false",
+                "metricName": "areaUnderROC",
+                "calculateScoring": "false",
+                "outputPathForMeanVectors": "/MeanVectorsOuput",
+                "ntile": "10",
+                "threshold": "0.8",
+                "conditionPositive": "0",
+                "conditionNegative": "1",
+                "groupName": "modelAlgoSettings",
+                "viewIntermediate": "false"
+            }
+        },
+        "source7": {
+            "wasbSink": {
+                "pmmlSave": "false",
+                "shapFlag": "false",
+                "modelStorageOutputDir": "/testing/randomforestClassification/model",
+                "sinkType": "wasb",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "viewIntermediate": "false"
+            }
+        }
+    },
+    "scheduleStatus": "initial",
+    "pmmlSave": false,
+    "timestamp": "1641799791635",
+    "elasticIndexRoi": "",
+    "pmmlRegister": false,
+    "showInServingFlag": false,
+    "pipeline": true,
+    "dfOutputPath": "",
+    "pipelineSaveCase": true,
+    "ensembling": "false",
+    "stacking": "false",
+    "sparkConf": {
+        "driver-memory": "2g",
+        "hdfsUri": "hdfs://NTCluster:8020",
+        "executor-memory": "2g",
+        "executor-cores": "2",
+        "num-executors": "2",
+        "queue": "default",
+        "sparkSql": "300",
+        "queueOption": ["high", "low", "medium", "default"],
+        "localSpark": "false"
+    },
+    "showResult": false,
+    "validateTrain": true,
+    "deleteExistingPath": true,
+    "sanityTest": false,
+    "dataSnapshot": false,
+    "modelSaveOnWholeDataset": false,
+    "trainDataCountFlag": true,
+    "specialParamsToSendObj": {
+        "conditionPositive": "0",
+        "conditionNegative": "1"
+    },
+    "writeForROI": false,
+    "nodeInfo": {
+        "wasb": "source2",
+        "dj": "source3",
+        "mv": "source4",
+        "si": "source5",
+        "rf-c": "source6",
+        "wasbSink": "source7"
+    },
+    "autoDexPipeline": false,
+    "rootScope": {
+        "bucketizerInput": [],
+        "branches": null,
+        "nodeResultData": {
+            "1": {
+                "header": [{
+                    "id": 1,
+                    "name": "source1_UCIC_ID_1",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 2,
+                    "name": "source1_EOP_PREV1",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 3,
+                    "name": "source1_EOP_PREV2",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 4,
+                    "name": "source1_EOP_PREV3",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 5,
+                    "name": "source1_EOP_PREV4",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 6,
+                    "name": "source1_EOP_PREV5",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 7,
+                    "name": "source1_EOP_PREV6",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 8,
+                    "name": "source1_CR_AMB_PREV1",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 9,
+                    "name": "source1_CR_AMB_PREV2",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 10,
+                    "name": "source1_CR_AMB_PREV3",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 11,
+                    "name": "source1_CR_AMB_PREV4",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 12,
+                    "name": "source1_CUSTINIT_DR_AMT_PREV1",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 13,
+                    "name": "source1_CUSTINIT_DR_AMT_PREV2",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 14,
+                    "name": "source1_RECAL_AQB_PREVQ1",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 15,
+                    "name": "source1_RECAL_RESP_REDUCER",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 16,
+                    "name": "source1_UCIC_ID_1",
+                    "model": "concat",
+                    "isSelected": false
+                }],
+                "row": [
+                    ["5000056", "1044", "22", "1532", "18", "18", "1508", "663", "1337", "165", "18", "885", "1510", "722", "0", "5000056"],
+                    ["5000091", "119", "104", "791", "707", "697", "660", "109", "480", "792", "697", "21", "1499", "460", "1", "5000091"],
+                    ["5000096", "521", "457", "304", "275", "301", "556", "475", "264", "282", "343", "171", "232", "340", "0", "5000096"],
+                    ["5000028", "408", "338", "159", "49", "142", "352", "1836", "902", "205", "184", "10737", "10744", "981", "0", "5000028"],
+                    ["5000087", "148", "145", "145", "143", "143", "143", "145", "145", "143", "143", "885", "624", "144", "0", "5000087"],
+                    ["5000035", "359", "362", "442", "396", "390", "390", "352", "403", "433", "390", "12", "83", "396", "0", "5000035"],
+                    ["5000071", "186", "168", "361", "384", "377", "377", "174", "366", "363", "379", "885", "292", "301", "0", "5000071"],
+                    ["5000078", "861", "839", "447", "527", "510", "480", "839", "649", "480", "518", "5", "120", "656", "0", "5000078"],
+                    ["5000073", "781", "774", "566", "609", "632", "328", "771", "629", "582", "633", "5", "33", "661", "0", "5000073"]
+                ]
+            },
+            "2": {
+                "header": [{
+                    "id": 1,
+                    "name": "source2_GENDER",
+                    "isSelected": false,
+                    "dataType": "string",
+                    "primitiveDataType": "StringType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 2,
+                    "name": "source2_legal_entity",
+                    "isSelected": false,
+                    "dataType": "string",
+                    "primitiveDataType": "StringType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 3,
+                    "name": "source2_OCCUP_ALL_NEW",
+                    "isSelected": false,
+                    "dataType": "string",
+                    "primitiveDataType": "StringType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 4,
+                    "name": "source2_UCIC_ID",
+                    "isSelected": true,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 5,
+                    "name": "source2_zip_code",
+                    "isSelected": false,
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 6,
+                    "name": "source2_UCIC_ID",
+                    "model": "concat",
+                    "isSelected": false
+                }, {
+                    "id": 7,
+                    "name": "source2_UCIC_ID",
+                    "model": "concat",
+                    "isSelected": false
+                }],
+                "row": [
+                    ["M", "INDIVIDUAL", "INDIVIDUAL", "5000056", "110002", "5000056", "5000056"],
+                    ["M", "INDIVIDUAL", "SELF_EMPLOYED", "5000091", "110002", "5000091", "5000091"],
+                    ["F", "INDIVIDUAL", "SALARIED", "5000096", "110002", "5000096", "5000096"],
+                    ["M", "INDIVIDUAL", "SALARIED", "5000028", "110002", "5000028", "5000028"],
+                    ["M", "INDIVIDUAL", "SELF_EMPLOYED", "5000087", "110002", "5000087", "5000087"],
+                    ["M", "INDIVIDUAL", "INDIVIDUAL", "5000035", "110002", "5000035", "5000035"],
+                    ["M", "INDIVIDUAL", "SALARIED", "5000071", "110002", "5000071", "5000071"],
+                    ["M", "PARTNERSHIP", "SELF_EMPLOYED", "5000078", "110002", "5000078", "5000078"],
+                    ["M", "INDIVIDUAL", "SALARIED", "5000073", "110002", "5000073", "5000073"]
+                ]
+            },
+            "3": {
+                "header": [{
+                    "id": 1,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_UCIC_ID_1",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 2,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_EOP_PREV1",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 3,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_EOP_PREV2",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 4,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_EOP_PREV3",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 5,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_EOP_PREV4",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 6,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_EOP_PREV5",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 7,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_EOP_PREV6",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 8,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_CR_AMB_PREV1",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 9,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_CR_AMB_PREV2",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 10,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_CR_AMB_PREV3",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 11,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_CR_AMB_PREV4",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 12,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_CUSTINIT_DR_AMT_PREV1",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 13,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_CUSTINIT_DR_AMT_PREV2",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 14,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source1_RECAL_AQB_PREVQ1",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 15,
+                    "isSelected": true,
+                    "model": "commonColumn",
+                    "name": "source1_RECAL_RESP_REDUCER",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 16,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source2_GENDER",
+                    "dataType": "string",
+                    "primitiveDataType": "StringType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 17,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source2_legal_entity",
+                    "dataType": "string",
+                    "primitiveDataType": "StringType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 18,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source2_OCCUP_ALL_NEW",
+                    "dataType": "string",
+                    "primitiveDataType": "StringType",
+                    "variableType": "categorical"
+                }, {
+                    "id": 19,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source2_UCIC_ID",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "continuous"
+                }, {
+                    "id": 20,
+                    "isSelected": false,
+                    "model": "commonColumn",
+                    "name": "source2_zip_code",
+                    "dataType": "number",
+                    "primitiveDataType": "DoubleType",
+                    "variableType": "categorical"
+                }],
+                "row": [
+                    ["5000056", "1044", "22", "1532", "18", "18", "1508", "663", "1337", "165", "18", "885", "1510", "722", "0", "M", "INDIVIDUAL", "INDIVIDUAL", "5000056", "110002"],
+                    ["5000091", "119", "104", "791", "707", "697", "660", "109", "480", "792", "697", "21", "1499", "460", "1", "M", "INDIVIDUAL", "SELF_EMPLOYED", "5000091", "110002"],
+                    ["5000096", "521", "457", "304", "275", "301", "556", "475", "264", "282", "343", "171", "232", "340", "0", "F", "INDIVIDUAL", "SALARIED", "5000096", "110002"],
+                    ["5000028", "408", "338", "159", "49", "142", "352", "1836", "902", "205", "184", "10737", "10744", "981", "0", "M", "INDIVIDUAL", "SALARIED", "5000028", "110002"],
+                    ["5000087", "148", "145", "145", "143", "143", "143", "145", "145", "143", "143", "885", "624", "144", "0", "M", "INDIVIDUAL", "SELF_EMPLOYED", "5000087", "110002"],
+                    ["5000035", "359", "362", "442", "396", "390", "390", "352", "403", "433", "390", "12", "83", "396", "0", "M", "INDIVIDUAL", "INDIVIDUAL", "5000035", "110002"],
+                    ["5000071", "186", "168", "361", "384", "377", "377", "174", "366", "363", "379", "885", "292", "301", "0", "M", "INDIVIDUAL", "SALARIED", "5000071", "110002"],
+                    ["5000078", "861", "839", "447", "527", "510", "480", "839", "649", "480", "518", "5", "120", "656", "0", "M", "PARTNERSHIP", "SELF_EMPLOYED", "5000078", "110002"],
+                    ["5000073", "781", "774", "566", "609", "632", "328", "771", "629", "582", "633", "5", "33", "661", "0", "M", "INDIVIDUAL", "SALARIED", "5000073", "110002"]
+                ]
+            }
+        },
+        "relationArrUpdated": null,
+        "dataRows": [],
+        "branchData": {
+            "1": {
+                "header": [{
+                    "id": 1,
+                    "name": "source1_UCIC_ID_1",
+                    "isSelected": false
+                }, {
+                    "id": 2,
+                    "name": "source1_EOP_PREV1",
+                    "isSelected": false
+                }, {
+                    "id": 3,
+                    "name": "source1_EOP_PREV2",
+                    "isSelected": false
+                }, {
+                    "id": 4,
+                    "name": "source1_EOP_PREV3",
+                    "isSelected": false
+                }, {
+                    "id": 5,
+                    "name": "source1_EOP_PREV4",
+                    "isSelected": false
+                }, {
+                    "id": 6,
+                    "name": "source1_EOP_PREV5",
+                    "isSelected": false
+                }, {
+                    "id": 7,
+                    "name": "source1_EOP_PREV6",
+                    "isSelected": false
+                }, {
+                    "id": 8,
+                    "name": "source1_CR_AMB_PREV1",
+                    "isSelected": false
+                }, {
+                    "id": 9,
+                    "name": "source1_CR_AMB_PREV2",
+                    "isSelected": false
+                }, {
+                    "id": 10,
+                    "name": "source1_CR_AMB_PREV3",
+                    "isSelected": false
+                }, {
+                    "id": 11,
+                    "name": "source1_CR_AMB_PREV4",
+                    "isSelected": false
+                }, {
+                    "id": 12,
+                    "name": "source1_CUSTINIT_DR_AMT_PREV1",
+                    "isSelected": false
+                }, {
+                    "id": 13,
+                    "name": "source1_CUSTINIT_DR_AMT_PREV2",
+                    "isSelected": false
+                }, {
+                    "id": 14,
+                    "name": "source1_RECAL_AQB_PREVQ1",
+                    "isSelected": false
+                }, {
+                    "id": 15,
+                    "name": "source1_RECAL_RESP_REDUCER",
+                    "isSelected": false
+                }],
+                "row": [
+                    ["5000056", "1044", "22", "1532", "18", "18", "1508", "663", "1337", "165", "18", "885", "1510", "722", "0"],
+                    ["5000091", "119", "104", "791", "707", "697", "660", "109", "480", "792", "697", "21", "1499", "460", "1"],
+                    ["5000096", "521", "457", "304", "275", "301", "556", "475", "264", "282", "343", "171", "232", "340", "0"],
+                    ["5000028", "408", "338", "159", "49", "142", "352", "1836", "902", "205", "184", "10737", "10744", "981", "0"],
+                    ["5000087", "148", "145", "145", "143", "143", "143", "145", "145", "143", "143", "885", "624", "144", "0"],
+                    ["5000035", "359", "362", "442", "396", "390", "390", "352", "403", "433", "390", "12", "83", "396", "0"],
+                    ["5000071", "186", "168", "361", "384", "377", "377", "174", "366", "363", "379", "885", "292", "301", "0"],
+                    ["5000078", "861", "839", "447", "527", "510", "480", "839", "649", "480", "518", "5", "120", "656", "0"],
+                    ["5000073", "781", "774", "566", "609", "632", "328", "771", "629", "582", "633", "5", "33", "661", "0"]
+                ]
+            },
+            "2": {
+                "header": [{
+                    "id": 1,
+                    "name": "source2_GENDER",
+                    "isSelected": false
+                }, {
+                    "id": 2,
+                    "name": "source2_legal_entity",
+                    "isSelected": false
+                }, {
+                    "id": 3,
+                    "name": "source2_OCCUP_ALL_NEW",
+                    "isSelected": false
+                }, {
+                    "id": 4,
+                    "name": "source2_UCIC_ID",
+                    "isSelected": false
+                }, {
+                    "id": 5,
+                    "name": "source2_zip_code",
+                    "isSelected": false
+                }],
+                "row": [
+                    ["M", "INDIVIDUAL", "INDIVIDUAL", "5000056", "110002"],
+                    ["M", "INDIVIDUAL", "SELF_EMPLOYED", "5000091", "110002"],
+                    ["F", "INDIVIDUAL", "SALARIED", "5000096", "110002"],
+                    ["M", "INDIVIDUAL", "SALARIED", "5000028", "110002"],
+                    ["M", "INDIVIDUAL", "SELF_EMPLOYED", "5000087", "110002"],
+                    ["M", "INDIVIDUAL", "INDIVIDUAL", "5000035", "110002"],
+                    ["M", "INDIVIDUAL", "SALARIED", "5000071", "110002"],
+                    ["M", "PARTNERSHIP", "SELF_EMPLOYED", "5000078", "110002"],
+                    ["M", "INDIVIDUAL", "SALARIED", "5000073", "110002"]
+                ]
+            }
+        },
+        "evaluatorMetricMultiple": [],
+        "evaluatorMetricClustering": [],
+        "expactedDexCoulmn": [],
+        "addOperationArr": [],
+        "expactedDataValidationCoulmn": [],
+        "featureToolInfo": [],
+        "cnnLayers": [],
+        "dexCategoryValue": [],
+        "columnMap": [],
+        "newColName": [],
+        "scalerInfo": [],
+        "servingFeatureColumnInfo": [],
+        "dataframeValues": [{
+            "dataHeader": "true",
+            "algoid": "dj",
+            "commonColumn": "source1_UCIC_ID_1",
+            "sourceId": "source1",
+            "source": "wasb",
+            "actualSourceId": 1
+        }, {
+            "dataHeader": "true",
+            "algoid": "dj",
+            "commonColumn": "source2_UCIC_ID",
+            "sourceId": "source2",
+            "source": "wasb",
+            "actualSourceId": 2
+        }],
+        "columnNumListWithFunction": []
+    },
+    "user": "naidomain2",
+    "email": "Email__id",
+    "servingEnabledPipeline": true,
+    "version": 1,
+    "orderOfNAIComponents": "sourceSettings,etlSettings,dataProfilingSettings,modelAlgoSettings,sinkSettings",
+    "droolsFlag": false,
+    "algoid": "",
+    "persistDataExploration": false,
+    "shapFlag": false,
+    "check": "pipeline",
+    "algoName": "dataJoin_rfc",
+    "projectName": "Project__Name",
+    "projectId": "Project__id",
+    "tag": "",
+    "commentData": false,
+    "modelAlgoParameters": {
+        "projectId": "Project__id",
+        "variableDerivationSettings": [],
+        "sinkSettings": [
+            [{
+                "nodeId": "7",
+                "algo": "WASB",
+                "pmmlSave": "false",
+                "shapFlag": "false",
+                "modelStorageOutputDir": "/testing/randomforestClassification/model",
+                "sinkType": "wasb",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "viewIntermediate": "false",
+                "algoName": "RandomForestClassification",
+                "dragId": 7,
+                "algoText": "wasbSink"
+            }]
+        ],
+        "modelAlgoSettings": [
+            [{
+                "nodeId": "6",
+                "algo": "Random Forest Classification",
+                "commonLableCol": "source1_RECAL_RESP_REDUCER",
+                "automaticCategoricalColumnFlag": "false",
+                "userGivenCategoricalColumns": "",
+                "pmmlSave": "false",
+                "shapFlag": "false",
+                "modelStorageOutputDir": "/testing/randomforestClassification/model",
+                "hyperParameterTunning": "false",
+                "kfoldFlag": "false",
+                "kfold": "4",
+                "seed": "12345",
+                "trainTestSplitType": "trainTestSplitRandomType",
+                "trainPercentage": "0.7",
+                "testPercentage": "0.3",
+                "trainTestDateColumn": "",
+                "trainSplitStartDate": "1970-01-01",
+                "trainSplitEndDate": "1970-01-01",
+                "testSplitEndDate": "1970-01-01",
+                "trainTestDateFormat": "dd-mm-yyyy",
+                "rfMaxDepth": "5",
+                "rfMaxBins": "50",
+                "rfFeatureSubsetStrategy": "auto",
+                "rfImpurity": "gini",
+                "rfMinimumInfoGain": "0.01",
+                "rfNumTree": "3",
+                "rfMinimumInstancePerNode": "4",
+                "rfSubSamplingRate": "0.1",
+                "rfIsCacheNodeIds": "false",
+                "rfCheckpointInterval": "-1",
+                "isMultiClass": "false",
+                "liftGainChart": "false",
+                "metricName": "areaUnderROC",
+                "calculateScoring": "false",
+                "outputPathForMeanVectors": "/MeanVectorsOuput",
+                "ntile": "10",
+                "threshold": "0.8",
+                "conditionPositive": "0",
+                "conditionNegative": "1",
+                "groupName": "modelAlgoSettings",
+                "viewIntermediate": "false",
+                "algoType": "RandomForestClassification",
+                "dragId": 6,
+                "algoText": "rf-c",
+                "hdfsUri": "hdfs://NTCluster:8020",
+                "branchId": "b1",
+                "sinkType": "wasb",
+                "algoName": "RandomForestClassification"
+            }]
+        ],
+        "dataProfilingSettings": [{
+            "nodeId": "4",
+            "algo": "Missing Value",
+            "functionAppliedOn": "Complete Data",
+            "selectedFunction": "ImputeWithMeanAndMode",
+            "columns": "",
+            "userInputIntegerValue": "",
+            "fillFunctionName": "",
+            "checkCompleteData": "true",
+            "saveFormat": "csv",
+            "dfStorageOutputDir": "/default",
+            "groupName": "dataProfilingSettings",
+            "columnNumListWithFunction": [{
+                "functionName": "ImputeWithMeanAndMode"
+            }],
+            "viewIntermediate": "false",
+            "algoType": "MissingValue",
+            "dragId": 4,
+            "algoText": "mv",
+            "hdfsUri": "hdfs://NTCluster:8020"
+        }, {
+            "nodeId": "5",
+            "algo": "String Indexer",
+            "columns": "source2_GENDER,source2_legal_entity,source2_OCCUP_ALL_NEW",
+            "saveFormat": "csv",
+            "pmmlSave": "false",
+            "dfStorageOutputDir": "/default",
+            "groupName": "dataProfilingSettings",
+            "algoType": "StringIndexer",
+            "viewIntermediate": "false",
+            "dragId": 5,
+            "algoText": "si",
+            "hdfsUri": "hdfs://NTCluster:8020"
+        }],
+        "dataExplorationSettings": [],
+        "dexActionSettings": [],
+        "etlSettings": [{
+            "nodeId": "3",
+            "type": "2DFOperartion",
+            "MultipleDFOperation": {
+                "type": "InnerJoin",
+                "InputId1": "1_1_1",
+                "InputId2": "2_1_1",
+                "commonColumn": "source1_UCIC_ID_1,source2_UCIC_ID",
+                "dataframeValues": [{
+                    "dataHeader": "true",
+                    "commonColumn": "source1_UCIC_ID_1",
+                    "InputId": "1_1_1"
+                }, {
+                    "dataHeader": "true",
+                    "commonColumn": "source2_UCIC_ID",
+                    "InputId": "2_1_1"
+                }],
+                "JoinCondition": "=",
+                "saveFormat": "csv",
+                "dfStorageOutputDir": "/defaultValue",
+                "groupName": "etlSettings",
+                "viewIntermediate": "false"
+            },
+            "OutputId": "1_1_1_1"
+        }, {
+            "nodeId": "4"
+        }, {
+            "nodeId": "5"
+        }, {
+            "nodeId": "6"
+        }],
+        "droolsSettings": [],
+        "segmentationSettings": [],
+        "groupByAlgoSettings": [],
+        "crossTabulationSettings": [],
+        "evaluatorSettings": [],
+        "featureSettings": [],
+        "sourceSettings": [{
+            "nodeId": "1",
+            "algo": "Wasb",
+            "dataSource": "wasb",
+            "fileType": "csv",
+            "containerName": "Container__name",
+            "blobName": "TransactionalData.csv",
+            "dataHeaderPresent": "true",
+            "Delimiter": ",",
+            "nonFeaturesColsList": "",
+            "hdfsUri": "hdfs://NTCluster:8020",
+            "hiveWarehouseDir": "/apps/hive/warehouse",
+            "csv": "no",
+            "DataframeInputId": "1_1",
+            "sourceName": "source1",
+            "inputFilePath": "/InputFiles/nwdata2.csv",
+            "viewIntermediate": "false",
+            "sourceCategory": "primary",
+            "algoName": "NA",
+            "DataframeOutputId": "1_1_1"
+        }, {
+            "nodeId": "2",
+            "algo": "Wasb",
+            "dataSource": "wasb",
+            "fileType": "csv",
+            "containerName": "Container__name",
+            "blobName": "demog.csv",
+            "dataHeaderPresent": "true",
+            "Delimiter": ",",
+            "nonFeaturesColsList": "",
+            "hdfsUri": "hdfs://NTCluster:8020",
+            "hiveWarehouseDir": "/apps/hive/warehouse",
+            "csv": "no",
+            "DataframeInputId": "2_1",
+            "sourceName": "source2",
+            "inputFilePath": "/InputFiles/nwdata2.csv",
+            "viewIntermediate": "false",
+            "sourceCategory": "primary",
+            "algoName": "NA",
+            "DataframeOutputId": "2_1_1"
+        }],
+        "timestamp": "1641797296343",
+        "scheduling": "false",
+        "pipelineId": "undefined_undefined",
+        "ensembling": "false",
+        "stacking": "false",
+        "hiddenStoragePathForDP": "/home/ntuser",
+        "hiddenStoragePathForLocal": "file:///datadrive/firoz",
+        "hiveWarehouseDirName": "/apps/hive/warehouse",
+        "trainValidation": "true",
+        "deleteExistingPipeline": "true",
+        "modelSaveOnWholeDataSetFlag": "false",
+        "sanityTest": "false",
+        "dataSnapshot": "false",
+        "trainDataCountFlag": "true",
+        "orderOfNAIComponents": "sourceSettings,etlSettings,dataProfilingSettings,modelAlgoSettings,sinkSettings",
+        "version": "V1",
+        "persistDataExploration": false,
+        "ip": "10.2.0.6",
+        "user": "root",
+        "password": "Number@123",
+        "port": "3306",
+        "tableForApplicationId": "appInfo",
+        "tableForJsonResult": "appLog",
+        "database": "mysql",
+        "ElasticIndex": "esindex",
+        "servingIndex": "serving",
+        "servingIndexType": "_doc",
+        "ElasticIP": "10.2.0.6:9300",
+        "ElasticCluster": "NT",
+        "ElasticClusterNode": "node-1",
+        "commonHdfsUri": "hdfs://NTCluster:8020",
+        "idColumn": "id",
+        "rewardAlgo": "thompsonSampling",
+        "switchingModelDuration": "2000",
+        "rewardTopic": "rewards",
+        "streamEngine": "SparkStream",
+        "numberOfRecommendation": "4",
+        "ElasticIPROI": "localhost:9200",
+        "ElasticClusterROI": "NT",
+        "ElasticClusterNodeROI": "node-1",
+        "categoricalValueByDefault": "50",
+        "standbyMysqlIp": "localhost",
+        "standbyMysqlPort": "3306",
+        "standbyMysqlUser": "root",
+        "standbyMysqlPass": "root",
+        "debugMode": "false",
+        "elasticSearchFlag": "true",
+        "outputHiveDatabaseEs": "hiveesresultdatabase",
+        "outputHiveTableEs": "hiveesresulttable",
+        "conditionPositive": "0",
+        "conditionNegative": "1",
+        "driver-memory": "2g",
+        "hdfsUri": "hdfs://NTCluster:8020",
+        "executor-memory": "2g",
+        "executor-cores": "2",
+        "num-executors": "2",
+        "queue": "default",
+        "sparkSql": "300",
+        "queueOption": ["high", "low", "medium", "default"],
+        "localSpark": "false",
+        "linkNodeOfNAIComponents": [{
+            "currentId": "1",
+            "type": "DataSource",
+            "algoName": "wasb",
+            "settings": "sourceSettings",
+            "prevNodeId": "",
+            "nextNodeId": "3"
+        }, {
+            "currentId": "2",
+            "type": "DataSource",
+            "algoName": "wasb",
+            "settings": "sourceSettings",
+            "prevNodeId": "",
+            "nextNodeId": "3"
+        }, {
+            "currentId": "3",
+            "type": "2DFOperartion",
+            "algoName": "dj",
+            "settings": "etlSettings",
+            "prevNodeId": "1,2",
+            "nextNodeId": "4"
+        }, {
+            "currentId": "4",
+            "algoName": "mv",
+            "settings": "dataProfilingSettings",
+            "prevNodeId": "3",
+            "nextNodeId": "5"
+        }, {
+            "currentId": "5",
+            "algoName": "si",
+            "settings": "dataProfilingSettings",
+            "prevNodeId": "4",
+            "nextNodeId": "6"
+        }, {
+            "currentId": "6",
+            "algoName": "rf-c",
+            "settings": "modelAlgoSettings",
+            "prevNodeId": "5",
+            "nextNodeId": "7"
+        }, {
+            "currentId": "7",
+            "type": "DataSink",
+            "algoName": "wasbSink",
+            "settings": "sinkSettings",
+            "prevNodeId": "6",
+            "nextNodeId": ""
+        }],
+        "droolsFlag": "false"
+    },
+    "refId": "Ref__id",
+    "processId": 183440,
+    "processStatus": "success"
+}
