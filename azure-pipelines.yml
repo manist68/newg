@@ -79,7 +79,7 @@ stages:
          targetType: 'inline'
          script: |
             az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
-            terraform init
+            terraform init -reconfigure
             terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
             terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
          workingDirectory: '$(System.DefaultWorkingDirectory)/code/userAdd'
@@ -94,7 +94,7 @@ stages:
          targetType: 'inline'
          script: |
             az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
-            terraform init
+            terraform init -reconfigure
             terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"-var "storageAcc=${env:storage_account}"
             terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"-var "storageAcc=${env:storage_account}"
          workingDirectory: '$(System.DefaultWorkingDirectory)/code/container_userAdd'
@@ -119,7 +119,7 @@ stages:
             } finally {
               [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
             }
-            terraform init
+            terraform init -reconfigure
             terraform plan -var "strgAccId=$strgAccId"
             terraform apply -auto-approve -var "strgAccId=$strgAccId"
          workingDirectory: '$(System.DefaultWorkingDirectory)/code/assignment'
