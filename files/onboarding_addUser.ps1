@@ -37,32 +37,32 @@ Connect-Azaccount -ServicePrincipal -Credential $Creds -TenantId "00bb5983-b28f-
 # } finally {
 #    [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
 # }
-$apiUrlSecret='OCS-api-url'
-$apiURL = Get-AzKeyVaultSecret -VaultName $KeyVaultName -Name $apiUrlSecret
+# $apiUrlSecret='OCS-api-url'
+# $apiURL = Get-AzKeyVaultSecret -VaultName $KeyVaultName -Name $apiUrlSecret
 
-$ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($apiURL.SecretValue)
-try {
-   $apiURL = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($ssPtr)
-} finally {
-   [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
-}
+# $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($apiURL.SecretValue)
+# try {
+#    $apiURL = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($ssPtr)
+# } finally {
+#    [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
+# }
 
-$authreq_headers = @{
-"Content-Type" = "application/json"
-"Accept" = "application/json;odata=fullmetadata"
-}
-$Body = @{tenantId=$TenantId} | Convertto-JSON
-$authTokenURL = $apiURL+"/api/NTStudioCloudData/createapitoken"
-$Authtokenrespose =  Invoke-RestMethod $authTokenURL -SessionVariable 'Session' -Body $Body -Method 'POST' -Headers $authreq_headers
-$authToken = $Authtokenrespose.value.token
+# $authreq_headers = @{
+# "Content-Type" = "application/json"
+# "Accept" = "application/json;odata=fullmetadata"
+# }
+# $Body = @{tenantId=$TenantId} | Convertto-JSON
+# $authTokenURL = $apiURL+"/api/NTStudioCloudData/createapitoken"
+# $Authtokenrespose =  Invoke-RestMethod $authTokenURL -SessionVariable 'Session' -Body $Body -Method 'POST' -Headers $authreq_headers
+# $authToken = $Authtokenrespose.value.token
 
-$cust_headers = @{
-"Content-Type" = "application/json"
-"Accept" = "application/json"
-"Authorization" = "bearer "+$authToken
-}
-$containerSasURL = $apiURL+"/api/NTStudioCloudData/getcontainersas?storagename="+$StorageAccName+"&containername="+$containerName+'&containerRBAC=Storage%20Blob%20Data%20Contributor'
-$sasRepose = Invoke-RestMethod $containerSasURL -Method 'GET' -Headers $cust_headers
+# $cust_headers = @{
+# "Content-Type" = "application/json"
+# "Accept" = "application/json"
+# "Authorization" = "bearer "+$authToken
+# }
+# $containerSasURL = $apiURL+"/api/NTStudioCloudData/getcontainersas?storagename="+$StorageAccName+"&containername="+$containerName+'&containerRBAC=Storage%20Blob%20Data%20Contributor'
+# $sasRepose = Invoke-RestMethod $containerSasURL -Method 'GET' -Headers $cust_headers
 
 foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -notmatch '^#.*'}) { 
     
@@ -87,7 +87,7 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
     (Get-Content -path $txt_Renamedespath -Raw) -replace 'Email__id',$email_id | Set-Content -Path $txt_Renamedespath
     (Get-Content -path $txt_Renamedespath -Raw) -replace 'User__name',$username | Set-Content -Path $txt_Renamedespath
     (Get-Content -path $txt_Renamedespath -Raw) -replace 'Container__name',$containerName | Set-Content -Path $txt_Renamedespath
-    (Get-Content -path $txt_Renamedespath -Raw) -replace 'Container__SAS',$sasRepose | Set-Content -Path $txt_Renamedespath
+    #(Get-Content -path $txt_Renamedespath -Raw) -replace 'Container__SAS',$sasRepose | Set-Content -Path $txt_Renamedespath
     #(Get-Content -path $txt_Renamedespath -Raw) -replace 'Storage__SAS',$StorageSAS | Set-Content -Path $txt_Renamedespath
     (Get-Content -path $txt_Renamedespath -Raw) -replace 'Tenant__ID',$TenantId | Set-Content -Path $txt_Renamedespath
     (Get-Content -path $txt_Renamedespath -Raw) -replace 'Storage__Account',$StorageAccName | Set-Content -Path $txt_Renamedespath
