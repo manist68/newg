@@ -23,11 +23,11 @@
     [PARAMETER(MANDATORY=$TRUE)]
 	[STRING]$TenantId
 )
-#$firstname = 'akshaya'
-#$lastname = 'test11'
-#$Dbhost = '10.2.0.6'
-#$Port = '27017'
-#$Dbname = 'testingUi'
+$firstname = 'dummy'
+$lastname = 'detail'
+$Dbhost = '10.2.0.6'
+$Port = '27017'
+$Dbname = 'dummmydb'
 $workspace = $ws
 $username = $firstname +'.'+$lastname
 $email_id = $firstname +'.'+$lastname+'@teamnumbertheory.onmicrosoft.com'
