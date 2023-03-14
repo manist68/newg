@@ -218,8 +218,7 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 
 	# Get-Content -Path .\master\app_project.json
         $raw = Get-Content -Path C:\agent\_work\4\s\files\master\app_project.json 
-
-        Write-Host $raw
+	Write-Host "The vale of app_project.json $raw"
 
     	
     #Remove-Item $finalpath
