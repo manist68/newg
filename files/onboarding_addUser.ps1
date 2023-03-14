@@ -1,7 +1,7 @@
 $firstname = 'dummy'
 $lastname = 'detail'
 $ipAddress = (Get-NetIPConfiguration | Where-Object {$_.IPv4DefaultGateway -ne $null -and $_.NetAdapter.status -ne "Disconnected"}).IPv4Address.IPAddress
-$Dbhost = $ipAddress
+$Dbhost = '10.2.2.4'
 $Port = '27017'
 $Dbname = 'dummmydb'
 $workspace = 'C:\agent\_work\4\s'
