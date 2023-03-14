@@ -216,10 +216,13 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
         $ErrorActionPreference = 'SilentlyContinue'
         mongoimport --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
 
-	# Get-Content -Path .\master\app_project.json
-        $raw = Get-Content -Path C:\agent\_work\4\s\files\master\app_project.json 
-	Write-Host "The vale of app_project.json $raw"
+
 
     	
     #Remove-Item $finalpath
 }
+
+
+	# Get-Content -Path .\master\app_project.json
+        $raw = Get-Content -Path C:\agent\_work\4\s\files\master\app_project.json 
+	Write-Host "The vale of app_project.json $raw"
