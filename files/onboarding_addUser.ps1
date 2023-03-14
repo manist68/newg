@@ -1,17 +1,3 @@
-[CmdletBinding()]
- Param (
-	[STRING]$firstname,	
-	[STRING]$lastname,    
-	[STRING]$Dbhost,    
-	[STRING]$Port,    
-	[STRING]$Dbname,    
-	[STRING]$ws,    
-	[STRING]$StorageAccName,    
-	[STRING]$KeyVaultName,    
-	[STRING]$ClientSecret,    
-	[STRING]$ClientID,    
-	[STRING]$TenantId
-)
 $firstname = 'dummy'
 $lastname = 'detail'
 $Dbhost = '10.2.0.6'
