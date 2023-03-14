@@ -35,33 +35,7 @@ variables:
   value: aiatscaleVault
 
 stages:
-# - stage: star_agent
-#   pool: Default
-#   jobs:
-#   - job: clean_folder
-#     workspace:
-#       clean: all
-#     continueOnError : false
-  
-#   - job: check_env_var
-#     dependsOn: clean_folder
-#     steps:
-#     - task: PowerShell@2
-#       inputs:
-#         targetType: 'inline'
-#         script: |
-#           # Write your commands here
-#           echo "----------------------Parameter Values----------------------------"
-#           echo ""
-#           echo "User First Name : ${env:FIRST-NAME}"
-#           echo "User Last Name: ${env:LAST-NAME}"
-#           echo "Mongodb host : ${env:db_host}:${env:db_port}"
-#           echo "Database Name : ${env:db_name}"
-#           echo "Storage account : ${env:storage_account}"
-#           echo ""
-#           echo "----------------------End----------------------------"
-
-- stage: create_customer
+- stage: clean_folderr
   #dependsOn: star_agent
   pool: Default
   jobs:
@@ -71,60 +45,8 @@ stages:
       clean: all
     continueOnError : false
 
-  # - job: user_ad
-  #   continueOnError: false
-  #   steps:
-  #    - task: PowerShell@2
-  #      inputs:
-  #        targetType: 'inline'
-  #        script: |
-  #           az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
-  #           terraform init -migrate-state
-  #           terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
-  #           terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
-  #        workingDirectory: '$(System.DefaultWorkingDirectory)/code/userAdd'
-
-
-  # - job: user_container
-  #   dependsOn: user_ad
-  #   continueOnError: false
-  #   steps:
-  #    - task: PowerShell@2
-  #      inputs:
-  #        targetType: 'inline'
-  #        script: |
-  #           az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
-  #           terraform init -reconfigure
-  #           terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"-var "storageAcc=${env:storage_account}"
-  #           terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"-var "storageAcc=${env:storage_account}"
-  #        workingDirectory: '$(System.DefaultWorkingDirectory)/code/container_userAdd'
-
- 
-
-  # - job: user_assginement
-  #   dependsOn: user_container
-  #   continueOnError: false
-  #   steps:
-  #    - task: PowerShell@2
-  #      inputs:
-  #        targetType: 'inline'
-  #        script: |
-  #           $StorageAccSceret = "OCS-"+${env:storage_account}+"-ID"
-  #           az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
-  #           $strgAccId = Get-AzKeyVaultSecret -VaultName $(KeyVaultName) -Name $StorageAccSceret
-
-  #           $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($strgAccId.SecretValue)
-  #           try {
-  #             $strgAccId = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($ssPtr)
-  #           } finally {
-  #             [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
-  #           }
-  #           terraform init -reconfigure
-  #           terraform plan -var "strgAccId=$strgAccId"
-  #           terraform apply -auto-approve -var "strgAccId=$strgAccId"
-  #        workingDirectory: '$(System.DefaultWorkingDirectory)/code/assignment'
-
-  - job: user_db
+  - job: script_run
+    dependsOn: clean_folderr
     continueOnError: false
     steps:
      - task: PowerShell@2
