@@ -71,71 +71,70 @@ stages:
       clean: all
     continueOnError : false
 
-  - job: user_ad
-    continueOnError: false
-    steps:
-     - task: PowerShell@2
-       inputs:
-         targetType: 'inline'
-         script: |
-            az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
-            terraform init -migrate-state
-            terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
-            terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
-         workingDirectory: '$(System.DefaultWorkingDirectory)/code/userAdd'
+  # - job: user_ad
+  #   continueOnError: false
+  #   steps:
+  #    - task: PowerShell@2
+  #      inputs:
+  #        targetType: 'inline'
+  #        script: |
+  #           az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
+  #           terraform init -migrate-state
+  #           terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
+  #           terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
+  #        workingDirectory: '$(System.DefaultWorkingDirectory)/code/userAdd'
 
 
-  - job: user_container
-    dependsOn: user_ad
-    continueOnError: false
-    steps:
-     - task: PowerShell@2
-       inputs:
-         targetType: 'inline'
-         script: |
-            az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
-            terraform init -reconfigure
-            terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"-var "storageAcc=${env:storage_account}"
-            terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"-var "storageAcc=${env:storage_account}"
-         workingDirectory: '$(System.DefaultWorkingDirectory)/code/container_userAdd'
+  # - job: user_container
+  #   dependsOn: user_ad
+  #   continueOnError: false
+  #   steps:
+  #    - task: PowerShell@2
+  #      inputs:
+  #        targetType: 'inline'
+  #        script: |
+  #           az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
+  #           terraform init -reconfigure
+  #           terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"-var "storageAcc=${env:storage_account}"
+  #           terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"-var "storageAcc=${env:storage_account}"
+  #        workingDirectory: '$(System.DefaultWorkingDirectory)/code/container_userAdd'
 
  
 
-  - job: user_assginement
-    dependsOn: user_container
-    continueOnError: false
-    steps:
-     - task: PowerShell@2
-       inputs:
-         targetType: 'inline'
-         script: |
-            $StorageAccSceret = "OCS-"+${env:storage_account}+"-ID"
-            az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
-            $strgAccId = Get-AzKeyVaultSecret -VaultName $(KeyVaultName) -Name $StorageAccSceret
+  # - job: user_assginement
+  #   dependsOn: user_container
+  #   continueOnError: false
+  #   steps:
+  #    - task: PowerShell@2
+  #      inputs:
+  #        targetType: 'inline'
+  #        script: |
+  #           $StorageAccSceret = "OCS-"+${env:storage_account}+"-ID"
+  #           az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
+  #           $strgAccId = Get-AzKeyVaultSecret -VaultName $(KeyVaultName) -Name $StorageAccSceret
 
-            $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($strgAccId.SecretValue)
-            try {
-              $strgAccId = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($ssPtr)
-            } finally {
-              [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
-            }
-            terraform init -reconfigure
-            terraform plan -var "strgAccId=$strgAccId"
-            terraform apply -auto-approve -var "strgAccId=$strgAccId"
-         workingDirectory: '$(System.DefaultWorkingDirectory)/code/assignment'
+  #           $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($strgAccId.SecretValue)
+  #           try {
+  #             $strgAccId = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($ssPtr)
+  #           } finally {
+  #             [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
+  #           }
+  #           terraform init -reconfigure
+  #           terraform plan -var "strgAccId=$strgAccId"
+  #           terraform apply -auto-approve -var "strgAccId=$strgAccId"
+  #        workingDirectory: '$(System.DefaultWorkingDirectory)/code/assignment'
 
-  - job: user_db
-    dependsOn: user_assginement
-    continueOnError: false
-    steps:
-     - task: PowerShell@2
-       inputs:
-         targetType: 'inline'
-         script: '.\onboarding_addUser.ps1 -firstname ${env:first-name}  -lastname ${env:last-name} -Dbhost ${env:db_host} -Port ${env:db_port} -Dbname ${env:db_name} -StorageAccName ${env:storage_account} -KeyVaultName $(KeyVaultName) -ClientSecret ${env:AZ_SECRET} -ClientID ${env:AZ_CLIENT} -TenantId ${env:AZ_TENANT} -ws $(System.DefaultWorkingDirectory)'
-         workingDirectory: '$(System.DefaultWorkingDirectory)\files'
+  # - job: user_db
+  #   dependsOn: user_assginement
+  #   continueOnError: false
+  #   steps:
+  #    - task: PowerShell@2
+  #      inputs:
+  #        targetType: 'inline'
+  #        script: '.\onboarding_addUser.ps1 -firstname ${env:first-name}  -lastname ${env:last-name} -Dbhost ${env:db_host} -Port ${env:db_port} -Dbname ${env:db_name} -StorageAccName ${env:storage_account} -KeyVaultName $(KeyVaultName) -ClientSecret ${env:AZ_SECRET} -ClientID ${env:AZ_CLIENT} -TenantId ${env:AZ_TENANT} -ws $(System.DefaultWorkingDirectory)'
+  #        workingDirectory: '$(System.DefaultWorkingDirectory)\files'
 
   - job: upload_sample_file_to_Container
-    dependsOn: user_db
     continueOnError: false
     steps:
      - task: PowerShell@2
@@ -163,22 +162,3 @@ stages:
             az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob VD_50.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/VD_50.csv 
          workingDirectory: '$(System.DefaultWorkingDirectory)'
 
-  - job: delete_tfState_user
-    dependsOn: upload_sample_file_to_Container
-    continueOnError: false
-    steps:
-     - task: PowerShell@2
-       inputs:
-         targetType: 'inline'
-         script: |
-            $ClientId = "86076dbf-debc-44ba-b4f5-c90686150665"
-            $ClientSecret = "nh08Q~qnTpwwFOkQMp1klMK_dFHUVwVTWmF1pbtS"
-            $TenantId = "00bb5983-b28f-4542-a099-20eaf8bbb209"
-            $password = ConvertTo-SecureString $ClientSecret -AsPlainText -Force
-            $psCredential = New-Object System.Management.Automation.PSCredential($ClientId, $password)
-            Connect-AzAccount -ServicePrincipal -Credential $psCredential -Tenant $TenantId
-            $StorageAccount = Get-AzStorageAccount -Name "naiglobalstrg" -ResourceGroupName "nai-global-dev-rg"
-            Remove-AzStorageBlob -Container "ocs-tfstate" -Blob "oneClick/dev/ocs-centralindia/user/terraform.tfstate" -Context $StorageAccount.Context
-            Remove-AzStorageBlob -Container "ocs-tfstate" -Blob "oneClick/dev/ocs-centralindia/container/terraform.tfstate" -Context $StorageAccount.Context
-            Remove-AzStorageBlob -Container "ocs-tfstate" -Blob "oneClick/dev/ocs-centralindia/ACR/terraform.tfstate" -Context $StorageAccount.Context
-         workingDirectory: '$(System.DefaultWorkingDirectory)'
