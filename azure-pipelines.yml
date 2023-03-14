@@ -79,7 +79,7 @@ stages:
          targetType: 'inline'
          script: |
             az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
-            terraform init -reconfigure
+            terraform init -migrate-state
             terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
             terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
          workingDirectory: '$(System.DefaultWorkingDirectory)/code/userAdd'
