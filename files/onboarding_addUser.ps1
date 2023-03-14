@@ -226,8 +226,8 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 
 	# Get-Content -Path .\master\app_project.json
         $raw = Get-Content -Path C:\agent\_work\4\s\files\master\app_project.json 
-	Write-Host "The vale of app_project.json $raw"
+# 	Write-Host "The value of app_project.json $raw"
 	
-	$straw = Get-Content -Path C:\dbdata\app_project.json
-	Write-Host "The vale of mongo app_project.json $straw"
+	$straw = Get-Content -Path  C:\dbdata\wasb_segment_wasb.json
+	Write-Host "The value of mongo wasb_segment_wasb $straw"
 	
