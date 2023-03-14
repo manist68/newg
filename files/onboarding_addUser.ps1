@@ -64,7 +64,6 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
     $finalpath = $targetPath +"\" + $JsonFileName 
 
     Copy-Item $txt_Renamedespath -Destination $finalpath
-blob
     Remove-Item $txt_Renamedespath
 
     $collection = $FileName
