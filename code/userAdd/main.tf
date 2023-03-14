@@ -9,10 +9,10 @@ provider "azuread" {}
 terraform {
   #required_version = ">= 0.12, < 0.13"
   backend "azurerm" {
-    storage_account_name = "naiglobalstrg"
-    resource_group_name  = "nai-global-dev-rg"
-    container_name       = "ocs-tfstate"
-    key                  = "oneClick/dev/ocs-centralindia/user/terraform.tfstate"
+    resource_group_name  = "nt-poc-akshaya"
+    storage_account_name = "sinkstrgadf" 
+    container_name       = "sink" 
+    key                  = "oneClick/user/terraform.tfstate"
   }
 }
 
