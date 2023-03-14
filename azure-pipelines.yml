@@ -78,7 +78,7 @@ stages:
        inputs:
          targetType: 'inline'
          script: |
-            az login -u 'akshaya.malik@teamnumbertheory.onmicrosoft.com' -p 'Ak@100888'
+            az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
             terraform init
             terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
             terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"
@@ -93,7 +93,7 @@ stages:
        inputs:
          targetType: 'inline'
          script: |
-            az login -u 'akshaya.malik@teamnumbertheory.onmicrosoft.com' -p 'Ak@100888'
+            az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
             terraform init
             terraform plan -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"-var "storageAcc=${env:storage_account}"
             terraform apply -auto-approve -var "firstname=${env:first-name}" -var "lastname=${env:last-name}"-var "storageAcc=${env:storage_account}"
@@ -110,7 +110,7 @@ stages:
          targetType: 'inline'
          script: |
             $StorageAccSceret = "OCS-"+${env:storage_account}+"-ID"
-            az login -u 'akshaya.malik@teamnumbertheory.onmicrosoft.com' -p 'Ak@100888'
+            az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
             $strgAccId = Get-AzKeyVaultSecret -VaultName $(KeyVaultName) -Name $StorageAccSceret
 
             $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($strgAccId.SecretValue)
@@ -147,7 +147,7 @@ stages:
             echo "-----------------uploading files to  $containerName--------------------------------"
             echo ""
             $StorageAccSceret = "OCS-"+${env:storage_account}+"-KEY"
-            az login -u 'akshaya.malik@teamnumbertheory.onmicrosoft.com' -p 'Ak@100888'
+            az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
             $strgKey = Get-AzKeyVaultSecret -VaultName $(KeyVaultName) -Name $StorageAccSceret
 
             $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($strgKey.SecretValue)
