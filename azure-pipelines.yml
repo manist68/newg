@@ -130,7 +130,7 @@ stages:
      - task: PowerShell@2
        inputs:
          targetType: 'inline'
-         script: '.\onboarding_addUser.ps1 -firstname ${env:first-name}  -lastname ${env:last-name} -Dbhost ${env:db_host} -Port ${env:db_port} -Dbname ${env:db_name} -StorageAccName ${env:storage_account} -KeyVaultName $(KeyVaultName) -ClientSecret ${env:AZ_SECRET} -ClientID ${env:AZ_CLIENT} -TenantId ${env:AZ_TENANT} -ws $(System.DefaultWorkingDirectory)'
+         script: '.\onboarding_addUser.ps1 -ws $(System.DefaultWorkingDirectory)'
          workingDirectory: '$(System.DefaultWorkingDirectory)\files'
 
   # - job: upload_sample_file_to_Container
