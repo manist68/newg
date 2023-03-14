@@ -225,9 +225,9 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 
 
 	# Get-Content -Path .\master\app_project.json
-        $raw = Get-Content -Path C:\agent\_work\4\s\files\master\app_project.json 
-# 	Write-Host "The value of app_project.json $raw"
+        $raw = Get-Content -Path C:\dbdata\Drop_Column.json 
+ 	Write-Host "The value of dbdata\Drop_Columnjson $raw"
 	
 	$straw = Get-Content -Path  C:\tempMongoJson\pipeline_version\Data_exploration_manual.txt
-	Write-Host "The value of mongo wasb_segment_wasb $straw"
+	Write-Host "The value of mongo pipeline_version\Data_exploration_manual $straw"
 	
