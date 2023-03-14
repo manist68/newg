@@ -18,11 +18,16 @@ $CustomerConfigURL = $workspace + '\files\master_config.txt'
 
 $StorageAccSceret = "OCS-"+$StorageAccName+"-SAS"
 $apiUrlSecret = "OCS-api-url"
+#####
+$username = "86076dbf-debc-44ba-b4f5-c90686150665" 
+$password = "nh08Q~qnTpwwFOkQMp1klMK_dFHUVwVTWmF1pbtS" 
 
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 
+$SecureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force
 
-# Connect-AzAccount -Tenant "00bb5983-b28f-4542-a099-20eaf8bbb209" -SubscriptionId "79f5beb2-913f-497f-b2bf-26792a7c08e4"
-az login --service-principal -u "86076dbf-debc-44ba-b4f5-c90686150665" --tenant "00bb5983-b28f-4542-a099-20eaf8bbb209"
+$Creds = New-Object System.Management.Automation.PSCredential ($username, $SecureStringPwd)
+
+Connect-Azaccount -ServicePrincipal -Credential $Creds -TenantId "00bb5983-b28f-4542-a099-20eaf8bbb209"
+
 
 # $StorageSAS = Get-AzKeyVaultSecret -VaultName $KeyVaultName -Name $StorageAccSceret
 
