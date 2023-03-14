@@ -124,41 +124,40 @@ stages:
   #           terraform apply -auto-approve -var "strgAccId=$strgAccId"
   #        workingDirectory: '$(System.DefaultWorkingDirectory)/code/assignment'
 
-  # - job: user_db
-  #   dependsOn: user_assginement
-  #   continueOnError: false
-  #   steps:
-  #    - task: PowerShell@2
-  #      inputs:
-  #        targetType: 'inline'
-  #        script: '.\onboarding_addUser.ps1 -firstname ${env:first-name}  -lastname ${env:last-name} -Dbhost ${env:db_host} -Port ${env:db_port} -Dbname ${env:db_name} -StorageAccName ${env:storage_account} -KeyVaultName $(KeyVaultName) -ClientSecret ${env:AZ_SECRET} -ClientID ${env:AZ_CLIENT} -TenantId ${env:AZ_TENANT} -ws $(System.DefaultWorkingDirectory)'
-  #        workingDirectory: '$(System.DefaultWorkingDirectory)\files'
-
-  - job: upload_sample_file_to_Container
+  - job: user_db
     continueOnError: false
     steps:
      - task: PowerShell@2
        inputs:
          targetType: 'inline'
-         script: |
-            $containerName = ${env:FIRST-NAME} + ${env:LAST-NAME}+'container'
-            echo ""
-            echo "-----------------uploading files to  $containerName--------------------------------"
-            echo ""
-            $StorageAccSceret = "OCS-"+${env:storage_account}+"-KEY"
-            az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
-            $strgKey = Get-AzKeyVaultSecret -VaultName $(KeyVaultName) -Name $StorageAccSceret
+         script: '.\onboarding_addUser.ps1 -firstname ${env:first-name}  -lastname ${env:last-name} -Dbhost ${env:db_host} -Port ${env:db_port} -Dbname ${env:db_name} -StorageAccName ${env:storage_account} -KeyVaultName $(KeyVaultName) -ClientSecret ${env:AZ_SECRET} -ClientID ${env:AZ_CLIENT} -TenantId ${env:AZ_TENANT} -ws $(System.DefaultWorkingDirectory)'
+         workingDirectory: '$(System.DefaultWorkingDirectory)\files'
 
-            $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($strgKey.SecretValue)
-            try {
-              $strgKey = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($ssPtr)
-            } finally {
-              [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
-            }
-            az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob collection20c_1.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/collection20c_1.csv
-            az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob AftCensor_10k.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/AftCensor_10k.csv
-            az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob CollectionData10k.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/CollectionData10k.csv
-            az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob Glass10k.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/Glass10k.csv
-            az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob VD_50.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/VD_50.csv 
-         workingDirectory: '$(System.DefaultWorkingDirectory)'
+  # - job: upload_sample_file_to_Container
+  #   continueOnError: false
+  #   steps:
+  #    - task: PowerShell@2
+  #      inputs:
+  #        targetType: 'inline'
+  #        script: |
+  #           $containerName = ${env:FIRST-NAME} + ${env:LAST-NAME}+'container'
+  #           echo ""
+  #           echo "-----------------uploading files to  $containerName--------------------------------"
+  #           echo ""
+  #           $StorageAccSceret = "OCS-"+${env:storage_account}+"-KEY"
+  #           az login -u 'mani.tiwari@newgensoft.com' -p 'qazmlp123$'
+  #           $strgKey = Get-AzKeyVaultSecret -VaultName $(KeyVaultName) -Name $StorageAccSceret
+
+  #           $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($strgKey.SecretValue)
+  #           try {
+  #             $strgKey = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($ssPtr)
+  #           } finally {
+  #             [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
+  #           }
+  #           az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob collection20c_1.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/collection20c_1.csv
+  #           az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob AftCensor_10k.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/AftCensor_10k.csv
+  #           az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob CollectionData10k.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/CollectionData10k.csv
+  #           az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob Glass10k.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/Glass10k.csv
+  #           az storage blob copy start --account-key $strgKey --account-name ${env:storage_account} --destination-blob VD_50.csv --destination-container $containerName --source-uri https://naiglobalstrg.blob.core.windows.net/psfiles/testfiles/VD_50.csv 
+  #        workingDirectory: '$(System.DefaultWorkingDirectory)'
 
