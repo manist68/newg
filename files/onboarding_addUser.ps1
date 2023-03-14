@@ -64,7 +64,7 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
     $finalpath = $targetPath +"\" + $JsonFileName 
 
     Copy-Item $txt_Renamedespath -Destination $finalpath
-
+blob
     Remove-Item $txt_Renamedespath
 
     $collection = $FileName
@@ -225,9 +225,17 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 
 
 	# Get-Content -Path .\master\app_project.json
-        $raw = Get-Content -Path C:\dbdata\Drop_Column.json 
- 	Write-Host "The value of dbdata\Drop_Columnjson $raw"
+#         $raw = Get-Content -Path C:\dbdata\Drop_Column.json 
+#  	Write-Host "The value of dbdata\Drop_Columnjson $raw"
 	
 	$straw = Get-Content -Path  C:\tempMongoJson\pipeline_version\Data_exploration_manual.txt
 	Write-Host "The value of mongo pipeline_version\Data_exploration_manual $straw"
+	
+	
+	# Get-Content -Path .\master\app_project.json
+        $draw = Get-Content -Path C:\dbdata\app_project.json 
+ 	Write-Host "The value of dbdata\app_project.json $draw"
+	
+	$nraw = Get-Content -Path  C:\dbdata\VD.json
+	Write-Host "The value of mongo C:\dbdata\VD.json $nraw"
 	
