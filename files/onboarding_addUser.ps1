@@ -47,6 +47,19 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
  
     #Rename json file ##
     Copy-Item $Renamescpath -Destination $txt_Renamedespath
+    $firstname = 'Mani'
+    $lastname = 'Saurabh'
+    $Dbhost = '10.2.0.6'
+    $Port = '27017'
+    $Dbname = 'dummmydb'
+    $workspace = 'C:\agent\_work\4\s'
+    $username = $firstname +'.'+$lastname
+    $email_id = $firstname +'.'+$lastname+'@teamnumbertheory.onmicrosoft.com'
+    $projectName = 'Mani_Saurabh_Project'
+
+    $containerName = $firstname + $lastname+'container'
+    $TenantId = 'NTtenant'
+    $StorageAccName = 'NTstorage'
 
     (Get-Content -path $txt_Renamedespath -Raw) -replace 'Project__Name',$projectName | Set-Content -Path $txt_Renamedespath
     (Get-Content -path $txt_Renamedespath -Raw) -replace 'Email__id',$email_id | Set-Content -Path $txt_Renamedespath
