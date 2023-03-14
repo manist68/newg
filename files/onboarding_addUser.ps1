@@ -1,28 +1,28 @@
-[CmdletBinding()]
- Param (
-	[PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$firstname,
-	[PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$lastname,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$Dbhost,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$Port,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$Dbname,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$ws,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$StorageAccName,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$KeyVaultName,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$ClientSecret,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$ClientID,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$TenantId
-)
+# [CmdletBinding()]
+#  Param (
+# 	[PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$firstname,
+# 	[PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$lastname,
+#     [PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$Dbhost,
+#     [PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$Port,
+#     [PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$Dbname,
+#     [PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$ws,
+#     [PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$StorageAccName,
+#     [PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$KeyVaultName,
+#     [PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$ClientSecret,
+#     [PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$ClientID,
+#     [PARAMETER(MANDATORY=$TRUE)]
+# 	[STRING]$TenantId
+# )
 $firstname = 'dummy'
 $lastname = 'detail'
 $Dbhost = '10.2.0.6'
