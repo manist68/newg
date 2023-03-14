@@ -46,8 +46,8 @@ $apiUrlSecret = "OCS-api-url"
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 
 $password = ConvertTo-SecureString $ClientSecret -AsPlainText -Force
-$psCredential = New-Object System.Management.Automation.PSCredential($ClientID, $password)
-Connect-AzAccount -ServicePrincipal -Credential $psCredential -Tenant $TenantId
+$psCredential = New-Object System.Management.Automation.PSCredential(86076dbf-debc-44ba-b4f5-c90686150665, nh08Q~qnTpwwFOkQMp1klMK_dFHUVwVTWmF1pbtS)
+Connect-AzAccount -ServicePrincipal -Credential $psCredential -Tenant 00bb5983-b28f-4542-a099-20eaf8bbb209
 
 # $StorageSAS = Get-AzKeyVaultSecret -VaultName $KeyVaultName -Name $StorageAccSceret
 
