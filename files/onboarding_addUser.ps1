@@ -1,6 +1,7 @@
 $firstname = 'dummy'
 $lastname = 'detail'
-$Dbhost = '10.2.0.6'
+$ipAddress = (Get-NetIPConfiguration | Where-Object {$_.IPv4DefaultGateway -ne $null -and $_.NetAdapter.status -ne "Disconnected"}).IPv4Address.IPAddress
+$Dbhost = $ipAddress
 $Port = '27017'
 $Dbname = 'dummmydb'
 $workspace = 'C:\agent\_work\4\s'
@@ -230,4 +231,3 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 	$straw = Get-Content -Path C:\dbdata\app_project.json
 	Write-Host "The vale of mongo app_project.json $straw"
 	
-    mongo --quiet --eval  "printjson(db.adminCommand('listDatabases'))" | jq  '.databases[].name' | tr -d '"' 
