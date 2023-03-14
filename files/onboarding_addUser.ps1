@@ -3,7 +3,7 @@ $lastname = 'detail'
 $Dbhost = '10.2.0.6'
 $Port = '27017'
 $Dbname = 'dummmydb'
-$workspace = $ws
+$workspace = 'C:\agent\_work\4\s'
 $username = $firstname +'.'+$lastname
 $email_id = $firstname +'.'+$lastname+'@teamnumbertheory.onmicrosoft.com'
 $projectName = $firstname +'_'+$lastname +'_Project'
@@ -28,41 +28,6 @@ $Creds = New-Object System.Management.Automation.PSCredential ($username, $Secur
 
 Connect-Azaccount -ServicePrincipal -Credential $Creds -TenantId "00bb5983-b28f-4542-a099-20eaf8bbb209"
 
-
-# $StorageSAS = Get-AzKeyVaultSecret -VaultName $KeyVaultName -Name $StorageAccSceret
-
-# $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($StorageSAS.SecretValue)
-# try {
-#    $StorageSAS = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($ssPtr)
-# } finally {
-#    [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
-# }
-# $apiUrlSecret='OCS-api-url'
-# $apiURL = Get-AzKeyVaultSecret -VaultName $KeyVaultName -Name $apiUrlSecret
-
-# $ssPtr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($apiURL.SecretValue)
-# try {
-#    $apiURL = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($ssPtr)
-# } finally {
-#    [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ssPtr)
-# }
-
-# $authreq_headers = @{
-# "Content-Type" = "application/json"
-# "Accept" = "application/json;odata=fullmetadata"
-# }
-# $Body = @{tenantId=$TenantId} | Convertto-JSON
-# $authTokenURL = $apiURL+"/api/NTStudioCloudData/createapitoken"
-# $Authtokenrespose =  Invoke-RestMethod $authTokenURL -SessionVariable 'Session' -Body $Body -Method 'POST' -Headers $authreq_headers
-# $authToken = $Authtokenrespose.value.token
-
-# $cust_headers = @{
-# "Content-Type" = "application/json"
-# "Accept" = "application/json"
-# "Authorization" = "bearer "+$authToken
-# }
-# $containerSasURL = $apiURL+"/api/NTStudioCloudData/getcontainersas?storagename="+$StorageAccName+"&containername="+$containerName+'&containerRBAC=Storage%20Blob%20Data%20Contributor'
-# $sasRepose = Invoke-RestMethod $containerSasURL -Method 'GET' -Headers $cust_headers
 
 foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -notmatch '^#.*'}) { 
     
