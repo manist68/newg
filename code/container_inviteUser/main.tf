@@ -16,8 +16,8 @@ terraform {
   backend "azurerm" {
     storage_account_name = "naiglobalstrg"
     resource_group_name  = "nai-global-dev-rg"
-    container_name       = "ocs-tfstate"
-    key                  = "oneClick/dev/ocs-centralindia/container/terraform.tfstate"
+    container_name       = "sink"
+    key                  = "oneClick/container/terraform.tfstate"
   }
 }
 
