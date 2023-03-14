@@ -1,26 +1,15 @@
 [CmdletBinding()]
  Param (
-	[PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$firstname,
-	[PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$lastname,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$Dbhost,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$Port,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$Dbname,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$ws,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$StorageAccName,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$KeyVaultName,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$ClientSecret,
-    [PARAMETER(MANDATORY=$TRUE)]
-	[STRING]$ClientID,
-    [PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$firstname,	
+	[STRING]$lastname,    
+	[STRING]$Dbhost,    
+	[STRING]$Port,    
+	[STRING]$Dbname,    
+	[STRING]$ws,    
+	[STRING]$StorageAccName,    
+	[STRING]$KeyVaultName,    
+	[STRING]$ClientSecret,    
+	[STRING]$ClientID,    
 	[STRING]$TenantId
 )
 # $firstname = 'dummy'
