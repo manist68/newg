@@ -46,7 +46,7 @@ stages:
     continueOnError : false
 
   - job: script_run
-    dependsOn: clean_folderr
+    dependsOn: clean_folder
     continueOnError: false
     steps:
      - task: PowerShell@2
