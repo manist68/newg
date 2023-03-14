@@ -21,7 +21,9 @@ $apiUrlSecret = "OCS-api-url"
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 
 
-Connect-AzAccount -Tenant "00bb5983-b28f-4542-a099-20eaf8bbb209" -SubscriptionId "79f5beb2-913f-497f-b2bf-26792a7c08e4"
+# Connect-AzAccount -Tenant "00bb5983-b28f-4542-a099-20eaf8bbb209" -SubscriptionId "79f5beb2-913f-497f-b2bf-26792a7c08e4"
+$identity = Get-AzUserAssignedIdentity -ResourceGroupName 'mss' -Name 'mss'
+Connect-AzAccount -Identity -AccountId $identity.ClientId # Run on the virtual machine
 
 # $StorageSAS = Get-AzKeyVaultSecret -VaultName $KeyVaultName -Name $StorageAccSceret
 
