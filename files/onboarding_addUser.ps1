@@ -1,33 +1,33 @@
-# [CmdletBinding()]
-#  Param (
-# 	[PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$firstname,
-# 	[PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$lastname,
-#     [PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$Dbhost,
-#     [PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$Port,
-#     [PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$Dbname,
-#     [PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$ws,
-#     [PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$StorageAccName,
-#     [PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$KeyVaultName,
-#     [PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$ClientSecret,
-#     [PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$ClientID,
-#     [PARAMETER(MANDATORY=$TRUE)]
-# 	[STRING]$TenantId
-# )
-$firstname = 'dummy'
-$lastname = 'detail'
-$Dbhost = '10.2.0.6'
-$Port = '27017'
-$Dbname = 'dummmydb'
+[CmdletBinding()]
+ Param (
+	[PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$firstname,
+	[PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$lastname,
+    [PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$Dbhost,
+    [PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$Port,
+    [PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$Dbname,
+    [PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$ws,
+    [PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$StorageAccName,
+    [PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$KeyVaultName,
+    [PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$ClientSecret,
+    [PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$ClientID,
+    [PARAMETER(MANDATORY=$TRUE)]
+	[STRING]$TenantId
+)
+# $firstname = 'dummy'
+# $lastname = 'detail'
+# $Dbhost = '10.2.0.6'
+# $Port = '27017'
+# $Dbname = 'dummmydb'
 $workspace = $ws
 $username = $firstname +'.'+$lastname
 $email_id = $firstname +'.'+$lastname+'@teamnumbertheory.onmicrosoft.com'
@@ -43,10 +43,6 @@ $CustomerConfigURL = $workspace + '\files\master_config.txt'
 
 $StorageAccSceret = "OCS-"+$StorageAccName+"-SAS"
 $apiUrlSecret = "OCS-api-url"
-
-$ClientID = "86076dbf-debc-44ba-b4f5-c90686150665"
-$ClientSecret = "nh08Q~qnTpwwFOkQMp1klMK_dFHUVwVTWmF1pbtS "
-$TenantId = "00bb5983-b28f-4542-a099-20eaf8bbb209"
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 
 $password = ConvertTo-SecureString $ClientSecret -AsPlainText -Force
