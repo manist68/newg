@@ -1,6 +1,5 @@
 $firstname = 'dummy'
 $lastname = 'detail'
-$ipAddress = (Get-NetIPConfiguration | Where-Object {$_.IPv4DefaultGateway -ne $null -and $_.NetAdapter.status -ne "Disconnected"}).IPv4Address.IPAddress
 $Dbhost = '10.2.2.4'
 $Port = '27017'
 $Dbname = 'dummmydb'
@@ -10,8 +9,9 @@ $email_id = $firstname +'.'+$lastname+'@teamnumbertheory.onmicrosoft.com'
 $projectName = $firstname +'_'+$lastname +'_Project'
 
 $containerName = $firstname + $lastname+'container'
-
-
+$User = ntuser
+$PassW = NumberTheory@54321
+# --username $User --password $PassW
 $targetPath = 'C:\tempMongoJson'
 $dbdataPath = 'C:\dbdata\' 
 
@@ -64,13 +64,14 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
     $finalpath = $targetPath +"\" + $JsonFileName 
 
     Copy-Item $txt_Renamedespath -Destination $finalpath
+
     Remove-Item $txt_Renamedespath
 
     $collection = $FileName
     $ErrorActionPreference = 'SilentlyContinue'
 
     if($FileName -ne 'input'){
-        mongoimport --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
+        mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
     }
     
 }
@@ -78,7 +79,7 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 $inputPath = $targetPath +"\input.json"
 $DbhostwithPort = $Dbhost+':'+$Port
 
-mongoexport --host $DbhostwithPort -d $Dbname -c app_project  -o C:\dbdata\app_project.json --queryFile $inputPath
+mongoexport --username $User --password $PassW --host $DbhostwithPort -d $Dbname -c app_project  -o C:\dbdata\app_project.json --queryFile $inputPath
 
 $dataFileName = 'app_project.json'
 $Onboard_JsonURL = $dbdataPath + $dataFileName
@@ -156,13 +157,13 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 		$collection = 'naidomain'
         $ErrorActionPreference = 'SilentlyContinue'
 
-        mongoimport --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
+        mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
 
         $inputfilePath = $infinalpath
         $DbhostwithPort = $Dbhost+':'+$Port
         $output = $dbdataPath + $line
 
-        mongoexport --host $DbhostwithPort -d $Dbname -c $collection  -o $output --queryFile $inputfilePath
+        mongoexport --username $User --password $PassW --host $DbhostwithPort -d $Dbname -c $collection  -o $output --queryFile $inputfilePath
 
         $dataFileName = $line
         $Onboard_JsonURL = $output
@@ -214,27 +215,13 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 
         $collection = 'naidomain_version'
         $ErrorActionPreference = 'SilentlyContinue'
-        mongoimport --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
+        mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
+        
+    	# Get-Content -Path .\master\app_project.json
+        $raw = Get-Content -Path .\master\app_project.json 
+
+        Write-Host $raw
 
 
-
-    	
     #Remove-Item $finalpath
 }
-
-
-	# Get-Content -Path .\master\app_project.json
-#         $raw = Get-Content -Path C:\dbdata\Drop_Column.json 
-#  	Write-Host "The value of dbdata\Drop_Columnjson $raw"
-	
-	$straw = Get-Content -Path  C:\tempMongoJson\pipeline_version\Data_exploration_manual.txt
-	Write-Host "The value of mongo pipeline_version\Data_exploration_manual $straw"
-	
-	
-	# Get-Content -Path .\master\app_project.json
-        $draw = Get-Content -Path C:\dbdata\app_project.json 
- 	Write-Host "The value of dbdata\app_project.json $draw"
-	
-	$nraw = Get-Content -Path  C:\dbdata\VD.json
-	Write-Host "The value of mongo C:\dbdata\VD.json $nraw"
-	
