@@ -224,10 +224,11 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
         # $raw = Get-Content -Path .\master\app_project.json 
 
         # Write-Host $raw
+	$raw = show dbs
+	Write-Host $raw
 
 
     #Remove-Item $finalpath
 }
 
-$raw = show dbs
-Write-Host $raw
+
