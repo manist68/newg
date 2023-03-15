@@ -83,7 +83,8 @@ $kollect = 'app_project'
 # mongoexport --username $User --password $PassW --host $DbhostwithPort -d $Dbname -c   -o C:\dbdata\app_project.json --queryFile $inputPath
 # mongoexport --username $User --password $PassW --host $DbhostwithPort --db $Dbname --collection 'app_project'  --out C:\dbdata\app_project.json 
 #mongoexport --host 10.2.2.4 --port 27017 -d dummydb -c app_project  --out C:\dbdata\app_project.json --query "{'recent':'yes'}"
-mongoexport --db $Dbname --collection $kollect --out C:\dbdata\app_project.json 
+#mongoexport --db $Dbname --collection $kollect --out C:\dbdata\app_project.json 
+mongoexport --host $DbhostwithPort -d $Dbname -c app_project  -o C:\dbdata\app_project.json --queryFile $inputPath
 $dataFileName = 'app_project.json'
 $Onboard_JsonURL = $dbdataPath + $dataFileName
 if (Test-Path $Onboard_JsonURL) {
@@ -167,7 +168,9 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
         $output = $dbdataPath + $line
         #mongoexport --host 10.2.2.4 --port 27017 -d dummydb -c $collection  --out $inputfilePath --query "{'recent':'yes'}"
         # mongoexport --username $User --password $PassW --host $DbhostwithPort --db $Dbname --collection $collection  --out $inputfilePath
-        mongoexport --db $Dbname --collection $collection --out $inputfilePath 
+        # mongoexport --db $Dbname --collection $collection --out $inputfilePath 
+        mongoexport --host $DbhostwithPort -d $Dbname -c $collection  -o $output --queryFile $inputfilePath
+
         $dataFileName = $line
         $Onboard_JsonURL = $output
         if (Test-Path $Onboard_JsonURL) {
@@ -224,11 +227,10 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
         # $raw = Get-Content -Path .\master\app_project.json 
 
         # Write-Host $raw
-	$raw = show dbs
-	Write-Host $raw
 
 
     #Remove-Item $finalpath
 }
 
-
+$raw = show dbs
+Write-Host $raw
