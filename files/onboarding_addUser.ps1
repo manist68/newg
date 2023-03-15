@@ -9,8 +9,8 @@ $email_id = $firstname +'.'+$lastname+'@teamnumbertheory.onmicrosoft.com'
 $projectName = $firstname +'_'+$lastname +'_Project'
 
 $containerName = $firstname + $lastname+'container'
-$User = ntuser
-$PassW = NumberTheory@54321
+$User = 'ntuser'
+$PassW = 'NumberTheory@54321'
 # --username $User --password $PassW
 $targetPath = 'C:\tempMongoJson'
 $dbdataPath = 'C:\dbdata\' 
