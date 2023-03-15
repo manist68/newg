@@ -217,7 +217,7 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
         $ErrorActionPreference = 'SilentlyContinue'
         mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
         
-    	# Get-Content -Path .\master\app_project.json
+    	# Get-Content -Path C:\tempMongoJson\app_project.txt
         $raw = Get-Content -Path .\master\app_project.json 
 
         Write-Host $raw
