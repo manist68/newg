@@ -2,7 +2,7 @@ $firstname = 'dummy'
 $lastname = 'detail'
 $Dbhost = '10.2.2.4'
 $Port = '27017'
-$Dbname = 'dummmydb'
+$Dbname = 'dummydb'
 $workspace = 'C:\agent\_work\4\s'
 $username = $firstname +'.'+$lastname
 $email_id = $firstname +'.'+$lastname+'@teamnumbertheory.onmicrosoft.com'
@@ -14,6 +14,7 @@ $PassW = 'NumberTheory@54321'
 # --username $User --password $PassW
 $targetPath = 'C:\tempMongoJson'
 $dbdataPath = 'C:\dbdata\' 
+
 
 $CustomerConfigURL = $workspace + '\files\master_config.txt'
 
@@ -80,8 +81,8 @@ $inputPath = $targetPath +"\input.json"
 $DbhostwithPort = $Dbhost+':'+$Port
 
 # mongoexport --username $User --password $PassW --host $DbhostwithPort -d $Dbname -c   -o C:\dbdata\app_project.json --queryFile $inputPath
-mongoexport --username $User --password $PassW --host $DbhostwithPort --db $Dbname --collection 'app_project'  --out C:\dbdata\app_project.json 
-
+# mongoexport --username $User --password $PassW --host $DbhostwithPort --db $Dbname --collection 'app_project'  --out C:\dbdata\app_project.json 
+mongoexport --host 10.2.2.4 --port 27017 -d dummydb -c app_project  --out C:\dbdata\app_project.json
 $dataFileName = 'app_project.json'
 $Onboard_JsonURL = $dbdataPath + $dataFileName
 if (Test-Path $Onboard_JsonURL) {
@@ -163,9 +164,9 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
         $inputfilePath = $infinalpath
         $DbhostwithPort = $Dbhost+':'+$Port
         $output = $dbdataPath + $line
-
-        mongoexport --username $User --password $PassW --host $DbhostwithPort --db $Dbname --collection $collection  --out $inputfilePath
-
+        mongoexport --host 10.2.2.4 --port 27017 -d dummydb -c $collection  --out $inputfilePath
+        # mongoexport --username $User --password $PassW --host $DbhostwithPort --db $Dbname --collection $collection  --out $inputfilePath
+        
         $dataFileName = $line
         $Onboard_JsonURL = $output
         if (Test-Path $Onboard_JsonURL) {
