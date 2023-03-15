@@ -70,16 +70,17 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
     $collection = $FileName
     $ErrorActionPreference = 'SilentlyContinue'
 
-    if($FileName -ne 'input'){
-        mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
-    }
+    # # if($FileName -ne 'input'){
+    #     mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
+    # # }
     
 }
 
 $inputPath = $targetPath +"\input.json"
 $DbhostwithPort = $Dbhost+':'+$Port
 
-mongoexport --username $User --password $PassW --host $DbhostwithPort -d $Dbname -c app_project  -o C:\dbdata\app_project.json --queryFile $inputPath
+# mongoexport --username $User --password $PassW --host $DbhostwithPort -d $Dbname -c   -o C:\dbdata\app_project.json --queryFile $inputPath
+mongoexport --username $User --password $PassW --host $DbhostwithPort --db $Dbname --collection 'app_project'  --out C:\dbdata\app_project.json 
 
 $dataFileName = 'app_project.json'
 $Onboard_JsonURL = $dbdataPath + $dataFileName
@@ -157,13 +158,13 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 		$collection = 'naidomain'
         $ErrorActionPreference = 'SilentlyContinue'
 
-        mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
+        #mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
 
         $inputfilePath = $infinalpath
         $DbhostwithPort = $Dbhost+':'+$Port
         $output = $dbdataPath + $line
 
-        mongoexport --username $User --password $PassW --host $DbhostwithPort -d $Dbname -c $collection  -o $output --queryFile $inputfilePath
+        mongoexport --username $User --password $PassW --host $DbhostwithPort --db $Dbname --collection $collection  --out $inputfilePath
 
         $dataFileName = $line
         $Onboard_JsonURL = $output
@@ -215,9 +216,9 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 
         $collection = 'naidomain_version'
         $ErrorActionPreference = 'SilentlyContinue'
-        mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
+        #mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
         
-    	# Get-Content -Path C:\tempMongoJson\app_project.txt
+    	# Get-Content -Path .\master\app_project.json
         $raw = Get-Content -Path .\master\app_project.json 
 
         Write-Host $raw
