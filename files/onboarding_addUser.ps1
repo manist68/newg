@@ -79,10 +79,11 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
 
 $inputPath = $targetPath +"\input.json"
 $DbhostwithPort = $Dbhost+':'+$Port
-
+$kollect = 'app_project'
 # mongoexport --username $User --password $PassW --host $DbhostwithPort -d $Dbname -c   -o C:\dbdata\app_project.json --queryFile $inputPath
 # mongoexport --username $User --password $PassW --host $DbhostwithPort --db $Dbname --collection 'app_project'  --out C:\dbdata\app_project.json 
-mongoexport --host 10.2.2.4 --port 27017 -d dummydb -c app_project  --out C:\dbdata\app_project.json
+#mongoexport --host 10.2.2.4 --port 27017 -d dummydb -c app_project  --out C:\dbdata\app_project.json --query "{'recent':'yes'}"
+mongoexport --db $Dbname --collection $kollect --out C:\dbdata\app_project.json 
 $dataFileName = 'app_project.json'
 $Onboard_JsonURL = $dbdataPath + $dataFileName
 if (Test-Path $Onboard_JsonURL) {
@@ -164,9 +165,9 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
         $inputfilePath = $infinalpath
         $DbhostwithPort = $Dbhost+':'+$Port
         $output = $dbdataPath + $line
-        mongoexport --host 10.2.2.4 --port 27017 -d dummydb -c $collection  --out $inputfilePath
+        #mongoexport --host 10.2.2.4 --port 27017 -d dummydb -c $collection  --out $inputfilePath --query "{'recent':'yes'}"
         # mongoexport --username $User --password $PassW --host $DbhostwithPort --db $Dbname --collection $collection  --out $inputfilePath
-        
+        mongoexport --db $Dbname --collection $collection --out $inputfilePath 
         $dataFileName = $line
         $Onboard_JsonURL = $output
         if (Test-Path $Onboard_JsonURL) {
@@ -220,10 +221,13 @@ foreach($line in [System.IO.File]::ReadLines($CustomerConfigURL) | Where {$_ -no
         #mongoimport --username $User --password $PassW --host $Dbhost --port $Port --db $Dbname --collection $collection --file $finalpath
         
     	# Get-Content -Path .\master\app_project.json
-        $raw = Get-Content -Path .\master\app_project.json 
+        # $raw = Get-Content -Path .\master\app_project.json 
 
-        Write-Host $raw
+        # Write-Host $raw
 
 
     #Remove-Item $finalpath
 }
+
+$raw = show dbs
+Write-Host $raw
